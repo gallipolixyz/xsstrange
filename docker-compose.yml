@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  xsstrange:
+    image: xsstrange
+    build:
+      context: .
+      dockerfile: ./DockerFile
+    ports:
+      - "80:80"
+    volumes:
+      - ./src/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./src:/var/www/html
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
