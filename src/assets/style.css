@@ -22,6 +22,7 @@
     --terminal-green: #00ff9d;
     --shadow-color: rgba(0, 255, 157, 0.1);
     --hover-shadow: rgba(0, 255, 157, 0.2);
+    --theme-switch-bg: #fff;
 }
 
 body {
@@ -253,10 +254,11 @@ ul li:hover, ol li:hover {
     top: 20px;
     right: 20px;
     z-index: 1000;
+    
 }
 
 .theme-switch button {
-    background: var(--card-bg);
+    background: var(--theme-switch-bg);
     border: 1px solid var(--border-color);
     border-radius: 50%;
     width: 40px;
