@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light grey background */
+    color: #343a40; /* Dark grey text */
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    border-left: 5px solid #007BFF; /* Blue left border */
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+li {
+    background-color: #ffffff; /* White background */
+    margin: 10px 0;
+    padding: 15px;
+    border-left: 5px solid #007BFF; /* Blue left border */
+}
+
+b {
+    color: #007BFF; /* Blue color for bold text */
+}
+
+h2 {
+    color: #007BFF; /* Blue color for headings */
+    text-align: center;
+    margin-top: 40px;
+}
+
+ol {
+    margin: 20px auto;
+    padding: 0 20px;
+    max-width: 800px;
+}
+
+ol li {
+    background-color: #ffffff; /* White background */
+    margin: 10px 0;
+    padding: 15px;
+    border-left: 5px solid #007BFF; /* Blue left border */
+}
+
+a {
+    color: #007BFF; /* Blue color for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none; /* Remove underline on hover */
+}
+
+.logo {
+    max-width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.header h1 {
+    margin: 0;
+    color: #007BFF; /* Blue color for title */
+}
+
+.contact-list {
+    list-style-type: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.contact-list li {
+    background-color: #ffffff; /* White background */
+    margin: 10px 0;
+    padding: 15px;
+    border-left: 5px solid #007BFF; /* Blue left border */
+}
+
+.test-categories {
+    list-style-type: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.test-categories li {
+    background-color: #ffffff; /* White background */
+    margin: 10px 0;
+    padding: 15px;
+    border-left: 5px solid #007BFF; /* Blue left border */
+}
