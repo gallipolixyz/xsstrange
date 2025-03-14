@@ -2,7 +2,7 @@
 <html data-theme="dark">
 <head>
     <title>XSS Lab - Xsstrange</title>
-    <link rel="stylesheet" type="text/css" href="../../style.css">
+    <link rel="stylesheet" type="text/css" href="./../../assets/style.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -46,22 +46,22 @@
 
                 <h2>Test Cases</h2>
                 <div class="test-grid">
-                    <a href="reflected/" class="test-card">
+                    <a href="./reflected/" class="test-card">
                         <h3>Reflected XSS</h3>
                         <p>Test non-persistent XSS scenarios where input is immediately returned to the user</p>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="stored/" class="test-card">
+                    <a href="./stored/" class="test-card">
                         <h3>Stored XSS</h3>
                         <p>Practice with persistent XSS where malicious scripts are saved on the server</p>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="dom/" class="test-card">
+                    <a href="./dom/" class="test-card">
                         <h3>DOM-based XSS</h3>
                         <p>Explore client-side JavaScript vulnerabilities through DOM manipulation</p>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="blind/" class="test-card">
+                    <a href="./blind/" class="test-card">
                         <h3>Blind XSS</h3>
                         <p>Learn about XSS payloads that trigger in different contexts</p>
                         <span class="card-arrow">→</span>
@@ -81,7 +81,9 @@
     </div>
 
     <script>
-        // Remove all previous JavaScript
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
     </script>
 </body>
 </html>
