@@ -1,19 +1,12 @@
-version: '3.4'
+version: '3.8'
 
 services:
-  xsstrange:
-    image: xsstrange
-    build:
-      context: .
-      dockerfile: ./DockerFile
+  web:
+    build: ./src
     ports:
       - "80:80"
     volumes:
-      - ./src/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - ./src:/var/www/html
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - ./src:/usr/local/apache2/htdocs
+    container_name: xsstrange-web
     restart: unless-stopped
+    stop_grace_period: 1m
