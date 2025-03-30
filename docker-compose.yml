@@ -1,12 +1,12 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  web:
-    build: ./src
+  flask-app:
+    build: .
     ports:
-      - "80:80"
+      - "80:5000"
     volumes:
-      - ./src:/usr/local/apache2/htdocs
-    container_name: xsstrange-web
-    restart: unless-stopped
-    stop_grace_period: 1m
+      - ./templates:/app/templates
+      - ./src:/app/src
+    environment:
+      FLASK_ENV: development
