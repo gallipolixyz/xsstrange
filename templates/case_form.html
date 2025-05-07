@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!-- 
+    İÇERİK ÖNERİLERİ:
+
+    1. HEAD BÖLÜMÜ:
+       - Title: Zafiyet türü ve kısa açıklama
+         Örnek: "SQL Injection - Login Bypass" veya "XSS - Stored Payload"
+       - Description: Zafiyetin kısa özeti
+         Örnek: "Basic SQL injection example with login form" veya "Stored XSS in comment section"
+
+    2. NAVIGATION:
+       - Otomatik oluşturulacak, düzenlemeye gerek yok
+
+    3. CASE INFO:
+       - Title: Zafiyet türü ve hedef
+         Örnek: "SQL Injection in Login Form" veya "XSS in Search Function"
+       - Difficulty: Zorluk seviyesi
+         * beginner: Temel zafiyetler, kolay tespit
+         * intermediate: Biraz daha karmaşık, birkaç adım gerektiren
+         * advanced: Karmaşık, birden fazla teknik gerektiren
+       - Category: Zafiyet kategorisi
+         * Input Handling: Form, arama, yükleme
+         * Authentication: Login, şifre sıfırlama
+         * File Operations: Dosya yükleme, indirme
+         * Data Handling: Veri işleme, depolama
+       - Risk: Zafiyetin etkisi
+         * low: Sınırlı etki, test verileri
+         * medium: Kullanıcı verileri etkilenebilir
+         * high: Sistem güvenliği etkilenebilir
+       - Description: Detaylı açıklama
+         * Zafiyetin ne olduğu
+         * Nasıl oluştuğu
+         * Etkileri
+         * Test senaryosu
+       - Hints: İpuçları
+         * Adım adım yönlendirme
+         * Teknik ipuçları
+         * Test yaklaşımları
+       - Objectives: Hedefler
+         * Tespit etme
+         * Doğrulama
+         * Exploit geliştirme
+         * Önleme
+
+    4. BODY:
+       - Form yapısı zafiyet türüne göre:
+         * SQL Injection: Login, arama formu
+         * XSS: Yorum, mesaj, profil
+         * File Upload: Dosya yükleme
+         * CSRF: İşlem formları
+       - Input alanları:
+         * Text: SQL, XSS payloadları
+         * File: Zararlı dosyalar
+         * Select: Parametre seçimi
+       - Çıktı alanı:
+         * Hata mesajları
+         * SQL sonuçları
+         * XSS payload çıktısı
+         * Dosya işlem sonuçları
+
+    5. FOOTER:
+       - Güvenlik uyarıları
+       - Test bilgileri
+       - Örnek payloadlar
+       - Referanslar
+
+    6. JAVASCRIPT:
+       - onload: Sayfa başlangıç işlemleri
+         * Form hazırlama
+         * Test verileri yükleme
+         * Debug bilgileri
+       - functions: Test fonksiyonları
+         * Form işleme
+         * Input validasyonu
+         * Payload oluşturma
+         * Sonuç gösterme
+
+    ÖNEMLİ NOTLAR:
+    - Tüm HTML içerisinde ilgili alanlar doldurulmalı, herhangi bir tag silinmemeli
+    - JavaScript kodları processed_js altında toplanacak
+    - Navigation yapısı dosya path'ine göre otomatik oluşturulacak
+-->
+<html lang="en">
+<head>
+    <!-- HEAD İÇERİĞİ -->
+    <title>[ZAFİYET BAŞLIĞI] - [KISA AÇIKLAMA]</title>
+    <meta name="description" content="[ZAFİYET ÖZETİ]">
+    
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <!-- Otomatik oluşturulacak -->
+    </nav>
+
+    <!-- CASE INFO -->
+    <div class="case-info">
+        <h1>[ZAFİYET TÜRÜ VE HEDEF]</h1>
+        <div class="case-meta">
+            <span class="difficulty">[ZORLUK SEVİYESİ: beginner/intermediate/advanced]</span>
+            <span class="category">[KATEGORİ: Input Handling/Authentication/File Operations/Data Handling]</span>
+            <span class="risk">[RİSK SEVİYESİ: low/medium/high]</span>
+        </div>
+        <div class="description">
+            [DETAYLI AÇIKLAMA]
+            - Zafiyetin ne olduğu
+            - Nasıl oluştuğu
+            - Etkileri
+            - Test senaryosu
+        </div>
+        <div class="hints">
+            <h3>Hints:</h3>
+            <ul>
+                <li>[İPUCU 1: Adım adım yönlendirme]</li>
+                <li>[İPUCU 2: Teknik ipuçları]</li>
+                <li>[İPUCU 3: Test yaklaşımları]</li>
+            </ul>
+        </div>
+        <div class="objectives">
+            <h3>Objectives:</h3>
+            <ul>
+                <li>[HEDEF 1: Tespit etme]</li>
+                <li>[HEDEF 2: Doğrulama]</li>
+                <li>[HEDEF 3: Exploit geliştirme]</li>
+                <li>[HEDEF 4: Önleme]</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BODY -->
+    <article>
+        <header>
+            <h1>[FORM BAŞLIĞI]</h1>
+        </header>
+        <section>
+            <!-- FORM YAPISI -->
+            <form id='[FORM_ID]' method='[GET/POST]'>
+                <!-- Input alanları zafiyet türüne göre doldurulacak -->
+                <input type='[text/file/select]' id='[INPUT_ID]' name='[INPUT_NAME]' placeholder='[GİRDİ AÇIKLAMASI]'>
+                <button type='submit'>[BUTON METNİ]</button>
+            </form>
+            <!-- ÇIKTI ALANI -->
+            <div id='[OUTPUT_ID]' class='[OUTPUT_CLASS]'>
+                <!-- Sonuçlar burada gösterilecek -->
+                <p>[SONUÇ AÇIKLAMASI]</p>
+                <pre>[SONUÇ ALANI]</pre>
+            </div>
+        </section>
+    </article>
+
+    <!-- FOOTER -->
+    <footer>
+        <section>
+            <!-- Case bilgileri -->
+            <p>[GÜVENLİK UYARISI]</p>
+            <p>[TEST BİLGİLERİ]</p>
+            <p>[ÖRNEK PAYLOAD]</p>
+            <p>[REFERANSLAR]</p>
+        </section>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ONLOAD
+        window.onload = function() {
+            // [SAYFA YÜKLENDİĞİNDE YAPILACAK İŞLEMLER]
+        };
+
+        // FUNCTIONS
+        function handleSubmit(event) {
+            // [FORM SUBMİT İŞLEMLERİ]
+        }
+
+
+
+        // [EK FONKSİYONLAR]
+    </script>
+
+    <!--  
+          - Eğer mysql kullanılacaksa aşağıdaki kodu kullanın
+          - Aşağıdaki kodu kullanılacak veritabanına bilgi eklemek için kullanın
+          - Kod içerisinde case için ihtiyaç duyulan farklı tablolar oluşturabilirsiniz.
+          - Tablo ismini case_adı_tablo_adı şeklinde belirtin.
+          - Eğer kullanmayacak iseniz bu kısmı kaldırın.
+          - Yayınlandığında bu kısım görünmeyecektir.
+    -->
+
+    <!--
+      - Script taginde bulunan type parametresini değiştirmeyin.
+
+      <script type="text/mysql-Database-init">
+        
+        CREATE TABLE users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(255),
+            password VARCHAR(255)
+        );
+        INSERT INTO users (username, password) VALUES ('admin', 'admin123');
+      </script>
+    -->
+
+    <!--  
+          - Eğer MongoDB kullanılacaksa aşağıdaki kodu kullanın
+          - Aşağıdaki kodu kullanılacak veritabanına bilgi eklemek için kullanın
+          - Kod içerisinde case için ihtiyaç duyulan farklı tablolar oluşturabilirsiniz.
+          - Tablo ismini case_adı_tablo_adı şeklinde belirtin.
+          - Eğer kullanmayacak iseniz bu kısmı kaldırın.
+          - Yayınlandığında bu kısım görünmeyecektir.
+    -->
+
+    <!--
+      <script type="text/mongodb-Database-init">
+        -- Bu kısımda tablo adı verilir. 'use veritabanı_adı_tablo_adı;' şeklinde yazılır.
+        use nosqli_demo;
+        
+        db.users.drop();
+        db.users.insertMany([
+          { username: "admin", password: "admin123" },
+          { username: "guest", password: "guest" }
+        ]);
+        
+      </script>
+    -->
+      
+</body>
+</html>
