@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+<head>
+    <title>Xsstrange - Web Security Testing Platform</title>
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <div class="container">
+        <header class="main-header">
+            <div class="logo-container">
+                <div class="glitch-wrapper">
+                    <h1 class="glitch" data-text="Xsstrange">Xsstrange</h1>
+                </div>
+                <div class="header-subtitle">Open Source Web Security Testing Platform</div>
+            </div>
+        </header>
+
+        <div class="terminal-section">
+            <div class="terminal-header">
+                <span class="terminal-title">Project Overview</span>
+                <div class="terminal-buttons">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="terminal-content">
+                <span class="prompt">$</span> Welcome to Xsstrange - A Gallipoli Community Project
+                <p>Welcome to Xsstrange! This project aims to create a testing environment for web vulnerability scanning tools. 
+                   Our platform can be used to learn automated security tools, observe their features, and evaluate their effectiveness 
+                   in different security testing scenarios.</p>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="card-icon"><i class="fas fa-code"></i></div>
+                <h3>Python & Flask</h3>
+                <p>Modern backend with Python and Flask framework</p>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon"><i class="fas fa-docker"></i></div>
+                <h3>Docker Ready</h3>
+                <p>Containerized environment for easy deployment</p>
+            </div>
+            <div class="feature-card">
+                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Security Focus</h3>
+                <p>Specialized in web vulnerability testing</p>
+            </div>
+        </div>
+
+        <section class="test-environments">
+            <h2><span class="bracket">[</span> Test Environments <span class="bracket">]</span></h2>
+            <div class="toggle-container">
+                <button class="toggle-eye-btn" title="Show/Hide Empty Categories">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="test-grid-wrapper">
+                <div class="test-grid">
+                    {% for case in cases %}
+                    <a href="/cases/{{ case.category }}" class="test-card{% if case.is_empty %} empty-case{% endif %}" {% if case.is_empty %}style="display:none;"{% endif %}>
+                        <div class="card-header">
+                            <span class="card-tag {{ case.tag|lower }}"><span class="dot"></span>{{ case.tag }}</span>
+                            <h3>{{ case.title }}</h3>
+                        </div>
+                        <p>{{ case.description }}</p>
+                        <div class="card-footer">
+                            <span class="status-dot"></span>
+                            <span class="status-text">{{ case.status }}</span>
+                            <span class="case-count">{{ case.case_count }} case</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2><span class="bracket">[</span> Contact & Community <span class="bracket">]</span></h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="card-icon"><i class="fab fa-github"></i></div>
+                    <h3>GitHub</h3>
+                    <p>Contribute to our open source project</p>
+                    <a href="https://github.com/gallipolixyz/xsstrange" target="_blank" class="contact-link">
+                        <i class="fab fa-github"></i> github.com/gallipolixyz/xsstrange
+                    </a>
+                </div>
+                <div class="contact-card">
+                    <div class="card-icon"><i class="fas fa-envelope"></i></div>
+                    <h3>Email</h3>
+                    <p>Get in touch with our team</p>
+                    <a href="mailto:info@gallipoli.xyz" class="contact-link">
+                        <i class="fas fa-envelope"></i> info@gallipoli.xyz
+                    </a>
+                </div>
+                <div class="contact-card">
+                    <div class="card-icon"><i class="fab fa-twitter"></i></div>
+                    <h3>X (Twitter)</h3>
+                    <p>Follow us for updates</p>
+                    <a href="https://x.com/gallipolixyz" target="_blank" class="contact-link">
+                        <i class="fab fa-twitter"></i> @gallipolixyz
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        const html = document.documentElement;
+        html.setAttribute('data-theme', 'dark'); // Force dark mode
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.querySelector('.toggle-eye-btn');
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.test-card.empty-case').forEach(function(card) {
+                    card.style.display = (card.style.display === 'none' || card.style.display === '') ? 'flex' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+<head>
+    <title>{{ category.title }} - Xsstrange</title>
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link href="/style.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<div class="matrix-bg"></div>
+<div class="container">
+<nav class="breadcrumb">
+<a href="/">Home</a> / <span>{{ category.title }}</span>
+</nav>
+<div class="info-section">
+<div class="info-header">
+<h1>{{ category.title }}</h1>
+<div class="severity-indicator {{ category.tag|lower }}">{{ category.tag }} Risk</div>
+</div>
+<div class="info-content">
+<p class="description">
+    {{ category.details.long_description }}
+</p>
+<div class="info-grid">
+<div class="info-card">
+<h3>Impact</h3>
+<ul>
+    {% for item in category.details.impact %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+</div>
+<div class="info-card">
+<h3>Common Vectors</h3>
+<ul>
+    {% for item in category.details.vectors %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+</div>
+</div>
+<h2>Test Cases</h2>
+<div class="test-grid">
+    {% for test in category.details.test_cases %}
+    <a class="test-card" href="./{{ category.category }}/{{ test.slug }}">
+        <h3>{{ test.title }}</h3>
+        <p>{{ test.desc }}</p>
+        <span class="card-arrow">→</span>
+    </a>
+    {% endfor %}
+</div>
+<div class="resources-section">
+<h2>Additional Resources</h2>
+<ul class="resource-list">
+    {% for res in category.details.resources %}
+    <li><a href="{{ res.url }}">{{ res.title }}</a></li>
+    {% endfor %}
+</ul>
+</div>
+</div>
+</div>
+</div>
+<script>
+        const html = document.documentElement;
+        html.setAttribute('data-theme', 'dark'); // Force dark mode
+    </script>
+</body>
+</html> 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+<head>
+    <title>{{ title }} - Xsstrange</title>
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="/">Home</a> / <a href="/cases/{{ category|default('') }}">{{ category|default('')|title }}</a> / <span>{{ title }}</span>
+        </nav>
+        <div class="info-section">
+            <div class="info-header">
+                <h1>{{ title }}</h1>
+                <div class="severity-indicator {{ risk|lower }}">{{ risk|title }} Risk</div>
+            </div>
+            <div class="info-content">
+                <div class="case-meta">
+                    <span class="difficulty-badge {{ difficulty|lower }}">{{ difficulty|title }}</span>
+                    <span class="category">Category: {{ category|title }}</span>
+                    <span class="status-text">Status: {{ status|title }}</span>
+                </div>
+                <div class="description">
+                    {{ description }}
+                </div>
+                {% if body %}
+                <div class="case-content">
+                    {{ body | safe }}
+                </div>
+                {% endif %}
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Objectives</h3>
+                        <ul>
+                            {% for objective in objectives %}
+                            <li>{{ objective }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Hints</h3>
+                        <ul>
+                            {% for hint in hints %}
+                            <li>{{ hint }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ footer | safe }}
+</body>
+</html> 
