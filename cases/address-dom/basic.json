@@ -1,0 +1,17 @@
+{
+  "title": "Basic DOM XSS",
+  "description": "This test demonstrates a simple DOM-based XSS vulnerability in the address input field. User input is reflected into the DOM without proper sanitization.",
+  "objectives": [
+    "Identify the DOM XSS vector.",
+    "Exploit the vulnerability to execute JavaScript."
+  ],
+  "hints": [
+    "Try injecting a <script> tag.",
+    "Check how the address is rendered in the DOM."
+  ],
+  "difficulty": "medium",
+  "category": "address-dom",
+  "risk": "medium",
+  "status": "active",
+  "body": "<div id='address'></div><script>const params = new URLSearchParams(window.location.search);document.getElementById('address').innerHTML = params.get('address');</script>"
+}

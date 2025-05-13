@@ -4,13 +4,10 @@ FROM python:3.9-slim
 # Set the working directory
 WORKDIR /app
 
-# Copy the application files
-COPY app.py ./app.py
-COPY templates ./templates
-COPY src ./src
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install dependencies
-RUN pip install flask
+COPY . .
 
 # Expose the port the app runs on
 EXPOSE 5000

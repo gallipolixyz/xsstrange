@@ -1,12 +1,18 @@
 version: "3.8"
 
 services:
-  flask-app:
+  app:
     build: .
+    container_name: xsstrange-app
     ports:
       - "80:5000"
     volumes:
-      - ./templates:/app/templates
-      - ./src:/app/src
-    environment:
-      FLASK_ENV: development
+      - .:/app
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+    name: xsstrange-network
