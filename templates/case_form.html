@@ -148,51 +148,6 @@
         // [EK FONKSİYONLAR]
     </script>
 
-    <!--  
-          - Eğer mysql kullanılacaksa aşağıdaki kodu kullanın
-          - Aşağıdaki kodu kullanılacak veritabanına bilgi eklemek için kullanın
-          - Kod içerisinde case için ihtiyaç duyulan farklı tablolar oluşturabilirsiniz.
-          - Tablo ismini case_adı_tablo_adı şeklinde belirtin.
-          - Eğer kullanmayacak iseniz bu kısmı kaldırın.
-          - Yayınlandığında bu kısım görünmeyecektir.
-    -->
-
-    <!--
-      - Script taginde bulunan type parametresini değiştirmeyin.
-
-      <script type="text/mysql-Database-init">
-        
-        CREATE TABLE users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(255),
-            password VARCHAR(255)
-        );
-        INSERT INTO users (username, password) VALUES ('admin', 'admin123');
-      </script>
-    -->
-
-    <!--  
-          - Eğer MongoDB kullanılacaksa aşağıdaki kodu kullanın
-          - Aşağıdaki kodu kullanılacak veritabanına bilgi eklemek için kullanın
-          - Kod içerisinde case için ihtiyaç duyulan farklı tablolar oluşturabilirsiniz.
-          - Tablo ismini case_adı_tablo_adı şeklinde belirtin.
-          - Eğer kullanmayacak iseniz bu kısmı kaldırın.
-          - Yayınlandığında bu kısım görünmeyecektir.
-    -->
-
-    <!--
-      <script type="text/mongodb-Database-init">
-        -- Bu kısımda tablo adı verilir. 'use veritabanı_adı_tablo_adı;' şeklinde yazılır.
-        use nosqli_demo;
-        
-        db.users.drop();
-        db.users.insertMany([
-          { username: "admin", password: "admin123" },
-          { username: "guest", password: "guest" }
-        ]);
-        
-      </script>
-    -->
       
 </body>
 </html>
