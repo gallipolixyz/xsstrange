@@ -67,27 +67,34 @@ docker-compose down
 
 ## Contributing
 
+We welcome contributions to the XSStrange project! We're especially looking for:
+
+- New XSS vulnerability test cases (reflected and DOM-based)
+- Documentation improvements
+- Bug fixes and feature enhancements
+
+### How to Contribute
+
+Please check our [CONTRIBUTING.md](CONTRIBUTING.md) guide for detailed instructions on:
+
+- Setting up your development environment
+- Creating new XSS test cases
+- Following the project template structure
+- Submitting your contributions
+
+### Quick Start for Contributors
+
 1. Fork the repository
 2. Create your feature branch:
    ```bash
    git checkout -b feature/xss-test-case
    ```
-3. Commit your changes:
-   ```bash
-   git commit -m 'Add new XSS test case'
-   ```
-4. Push to the branch:
-   ```bash
-   git push origin feature/xss-test-case
-   ```
-5. Open a Pull Request to the `main` branch
+3. Copy the base template from `templates/case_form.html`
+4. Create your test case following the guidelines
+5. Test your changes locally
+6. Submit a Pull Request
 
-## Development Workflow
-
-### Adding New Test Cases
-1. Create a new directory in `src/cases/xss/` for your test case
-2. Add corresponding template in `templates/cases/xss/`
-3. Update the test case documentation
+For detailed guidelines on creating XSS test cases, please refer to our [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
 ## License
 
