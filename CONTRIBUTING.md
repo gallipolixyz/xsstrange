@@ -4,17 +4,21 @@ Thank you for your interest in contributing to XSStrange! This document provides
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-  - [Fork and Clone](#fork-and-clone)
-  - [Development Environment](#development-environment)
-- [Creating XSS Test Cases](#creating-xss-test-cases)
-  - [Test Case Structure](#test-case-structure)
-  - [Using the Template](#using-the-template)
-  - [Testing Your Changes](#testing-your-changes)
-- [Contribution Workflow](#contribution-workflow)
-  - [Branch Creation](#branch-creation)
-  - [Making Changes](#making-changes)
-  - [Submitting Changes](#submitting-changes)
+- [Contributing to XSStrange](#contributing-to-xsstrange)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+    - [Fork and Clone](#fork-and-clone)
+    - [Development Environment](#development-environment)
+  - [Creating XSS Test Cases](#creating-xss-test-cases)
+    - [Test Case Structure](#test-case-structure)
+    - [Using the Template](#using-the-template)
+    - [Testing Your Changes](#testing-your-changes)
+  - [Contribution Workflow](#contribution-workflow)
+    - [Branch Creation](#branch-creation)
+    - [Making Changes](#making-changes)
+    - [Submitting Changes](#submitting-changes)
+  - [Review Process](#review-process)
+  - [Questions and Support](#questions-and-support)
 
 ## Getting Started
 
@@ -70,19 +74,34 @@ Each test case should:
    ```
    Categories include: reflected_xss, dom_xss, etc.
 
-3. Edit only the commented sections in the template:
-   ```html
-   <!-- Case Information Section -->
-   <!-- Only modify content between comment tags -->
-   ```
+3. When editing the template, you can modify:
 
-4. Required sections in each test case:
-   - Title
-   - Description
-   - Risk Level
-   - Category
-   - Difficulty
-   - Implementation Details
+   a. Content within square brackets [...]:
+      - Remove the brackets and replace with your content
+      - Example: Change `[ZAFİYET BAŞLIĞI]` to `Reflected XSS in Search Field`
+      - Never include the square brackets in your final case file
+
+   b. Content within HTML comments:
+      ```html
+      <!-- Bu kısımda açıklama yazabilirsiniz -->
+      <!-- Burada form yapısını değiştirebilirsiniz -->
+      ```
+      - You can modify or replace these commented sections
+      - Add your own implementation and descriptions
+      - Keep the HTML structure intact
+
+4. Required sections to replace:
+   - Title and short description (in head section)
+   - Vulnerability type and target
+   - Difficulty level (beginner/intermediate/advanced)
+   - Category (Input Handling/Authentication/File Operations/Data Handling)
+   - Risk level (low/medium/high)
+   - Detailed description
+   - Form elements and content
+   - JavaScript functions and event handlers
+   - Database initialization scripts (if needed)
+
+5. Keep all HTML structure intact - only modify the placeholder content
 
 ### Testing Your Changes
 
