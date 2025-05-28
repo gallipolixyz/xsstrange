@@ -1,135 +1,129 @@
 <!DOCTYPE html>
 <!-- 
-    İÇERİK ÖNERİLERİ:
+    CONTENT SUGGESTIONS:
 
-    1. HEAD BÖLÜMÜ:
-       - Title: Zafiyet türü ve kısa açıklama
-         Örnek: "SQL Injection - Login Bypass" veya "XSS - Stored Payload"
-       - Description: Zafiyetin kısa özeti
-         Örnek: "Basic SQL injection example with login form" veya "Stored XSS in comment section"
+    1. HEAD SECTION:
+       - Title: Vulnerability type and brief description
+         Example: "SQL Injection - Login Bypass" or "XSS - Stored Payload"
+       - Description: Brief summary of the vulnerability
+         Example: "Basic SQL injection example with login form" or "Stored XSS in comment section"
 
     2. NAVIGATION:
-       - Otomatik oluşturulacak, düzenlemeye gerek yok
+       - Automatically generated, no need to edit
 
     3. CASE INFO:
-       - Title: Zafiyet türü ve hedef
-         Örnek: "SQL Injection in Login Form" veya "XSS in Search Function"
-       - Difficulty: Zorluk seviyesi
-         * beginner: Temel zafiyetler, kolay tespit
-         * intermediate: Biraz daha karmaşık, birkaç adım gerektiren
-         * advanced: Karmaşık, birden fazla teknik gerektiren
-       - Category: Zafiyet kategorisi
-         * Input Handling: Form, arama, yükleme
-         * Authentication: Login, şifre sıfırlama
-         * File Operations: Dosya yükleme, indirme
-         * Data Handling: Veri işleme, depolama
-       - Risk: Zafiyetin etkisi
-         * low: Sınırlı etki, test verileri
-         * medium: Kullanıcı verileri etkilenebilir
-         * high: Sistem güvenliği etkilenebilir
-       - Description: Detaylı açıklama
-         * Zafiyetin ne olduğu
-         * Nasıl oluştuğu
-         * Etkileri
-         * Test senaryosu
+       - Title: Vulnerability type and target
+         Example: "SQL Injection in Login Form" or "XSS in Search Function"
+       - Difficulty: Complexity level
+         * beginner: Basic vulnerabilities, easy to detect
+         * intermediate: More complex, requires multiple steps
+         * advanced: Complex, requires multiple techniques
+       - Category: Vulnerability category
+         * Input Handling: Forms, search, uploads
+         * Authentication: Login, password reset
+         * File Operations: File upload, download
+         * Data Handling: Data processing, storage
+       - Risk: Impact level
+         * low: Limited impact, test data only
+         * medium: User data may be affected
+         * high: System security may be compromised
+       - Description: Detailed explanation
+         * What the vulnerability is
+         * How it occurs
+         * Its effects
+         * Test scenario
 
     4. BODY:
-       - Form yapısı zafiyet türüne göre:
-         * SQL Injection: Login, arama formu
-         * XSS: Yorum, mesaj, profil
-         * File Upload: Dosya yükleme
-         * CSRF: İşlem formları
-       - Input alanları:
-         * Text: SQL, XSS payloadları
-         * File: Zararlı dosyalar
-         * Select: Parametre seçimi
-       - Çıktı alanı:
-         * Hata mesajları
-         * SQL sonuçları
-         * XSS payload çıktısı
-         * Dosya işlem sonuçları
+       - Form structure based on vulnerability type:
+         * SQL Injection: Login, search forms
+         * XSS: Comments, messages, profile
+         * File Upload: File upload forms
+         * CSRF: Transaction forms
+       - Input fields:
+         * Text: SQL, XSS payloads
+         * File: Malicious files
+         * Select: Parameter selection
+       - Output area:
+         * Error messages
+         * SQL results
+         * XSS payload output
+         * File operation results
 
     5. FOOTER:
-       - Güvenlik uyarıları
-       - Test bilgileri
-       - Örnek payloadlar
-       - Referanslar
+       - Security warnings
+       - Test information
+       - Example payloads
+       - References
 
     6. JAVASCRIPT:
-       - onload: Sayfa başlangıç işlemleri
-         * Form hazırlama
-         * Test verileri yükleme
-         * Debug bilgileri
-       - functions: Test fonksiyonları
-         * Form işleme
-         * Input validasyonu
-         * Payload oluşturma
-         * Sonuç gösterme
-
-    ÖNEMLİ NOTLAR:
-    - Tüm HTML içerisinde ilgili alanlar doldurulmalı, herhangi bir tag silinmemeli
-    - JavaScript kodları processed_js altında toplanacak
-    - Navigation yapısı dosya path'ine göre otomatik oluşturulacak
+       - onload: Page initialization
+         * Form preparation
+         * Test data loading
+         * Debug information
+       - functions: Test functions
+         * Form processing
+         * Input validation
+         * Payload generation
+         * Result display    
+    IMPORTANT NOTES:
+    - All areas in HTML must be filled, do not remove any tags
+    - JavaScript code should be collected under processed_js
+    - Navigation structure will be automatically generated based on file path
 -->
+
 <html lang="en">
 <head>
-    <!-- HEAD İÇERİĞİ -->
-    <title>[ZAFİYET BAŞLIĞI] - [KISA AÇIKLAMA]</title>
-    <meta name="description" content="[ZAFİYET ÖZETİ]">
+    <!-- HEAD CONTENT -->
+    <title>[VULNERABILITY_TITLE] - [SHORT_DESCRIPTION]</title>
+    <meta name="description" content="[VULNERABILITY_SUMMARY]">
     
 </head>
 <body>
     <!-- NAVIGATION -->
     <nav>
-        <!-- Otomatik oluşturulacak -->
-    </nav>
-
-    <!-- CASE INFO -->
+        <!-- Automatically generated, no need to edit -->
+    </nav>    <!-- CASE INFO -->
     <div class="case-info">
-        <h1>[ZAFİYET TÜRÜ VE HEDEF]</h1>
+        <h1>[VULNERABILITY_TYPE_AND_TARGET]</h1>
         <div class="case-meta">
-            <span class="difficulty">[ZORLUK SEVİYESİ: beginner/intermediate/advanced]</span>
-            <span class="category">[KATEGORİ: Input Handling/Authentication/File Operations/Data Handling]</span>
-            <span class="risk">[RİSK SEVİYESİ: low/medium/high]</span>
+            <span class="difficulty">[DIFFICULTY_LEVEL: beginner/intermediate/advanced]</span>
+            <span class="category">[CATEGORY: Input Handling/Authentication/File Operations/Data Handling]</span>
+            <span class="risk">[RISK_LEVEL: low/medium/high]</span>
         </div>
         <div class="description">
-            [DETAYLI AÇIKLAMA]
-            - Zafiyetin ne olduğu
-            - Nasıl oluştuğu
-            - Etkileri
-            - Test senaryosu
+            [DETAILED_DESCRIPTION]
+            - What the vulnerability is
+            - How it occurs
+            - Effects
+            - Test scenario
         </div>
-    </div>
-
-    <!-- BODY -->
+    </div>    <!-- BODY -->
     <article>
         <header>
-            <h1>[FORM BAŞLIĞI]</h1>
+            <h1>[FORM_TITLE]</h1>
         </header>
         <section>
-            <!-- FORM YAPISI -->
+            <!-- FORM STRUCTURE -->
             <form id='[FORM_ID]' method='[GET/POST]'>
-                <!-- Input alanları zafiyet türüne göre doldurulacak -->
-                <input type='[text/file/select]' id='[INPUT_ID]' name='[INPUT_NAME]' placeholder='[GİRDİ AÇIKLAMASI]'>
-                <button type='submit'>[BUTON METNİ]</button>
+                <!-- Input fields to be filled based on vulnerability type -->
+                <input type='[text/file/select]' id='[INPUT_ID]' name='[INPUT_NAME]' placeholder='[INPUT_DESCRIPTION]'>
+                <button type='submit'>[BUTTON_TEXT]</button>
             </form>
-            <!-- ÇIKTI ALANI -->
+            <!-- OUTPUT AREA -->
             <div id='[OUTPUT_ID]' class='[OUTPUT_CLASS]'>
-                <!-- Sonuçlar burada gösterilecek -->
-                <p>[SONUÇ AÇIKLAMASI]</p>
-                <pre>[SONUÇ ALANI]</pre>
+                <!-- Results will be shown here -->
+                <p>[RESULT_DESCRIPTION]</p>
+                <pre>[RESULT_AREA]</pre>
             </div>
         </section>
-    </article>
-
-    <!-- FOOTER -->
+    </article>    <!-- FOOTER -->
     <footer>
         <section>
-            <!-- Case bilgileri -->
-            <p>[GÜVENLİK UYARISI]</p>
-            <p>[TEST BİLGİLERİ]</p>
-            <p>[ÖRNEK PAYLOAD]</p>
-            <p>[REFERANSLAR]</p>
+            <!-- Case information -->
+            <p>[SECURITY_WARNING]</p>
+            <p>[TEST_INFORMATION]</p>
+            <p>[EXAMPLE_PAYLOAD]</p>
+            <p>[REFERENCES]</p>
         </section>
     </footer>
 
@@ -137,17 +131,16 @@
     <script>
         // ONLOAD
         window.onload = function() {
-            // [SAYFA YÜKLENDİĞİNDE YAPILACAK İŞLEMLER]
+            // [PAGE_LOAD_OPERATIONS]
         };
 
         // FUNCTIONS
         function handleSubmit(event) {
-            // [FORM SUBMİT İŞLEMLERİ]
+            // [FORM_SUBMIT_OPERATIONS]
         }
 
-        // [EK FONKSİYONLAR]
+        // [ADDITIONAL_FUNCTIONS]
     </script>
 
-      
 </body>
 </html>
