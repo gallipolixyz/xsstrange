@@ -1,6 +1,6 @@
 # Contributing to XSStrange
 
-Thank you for your interest in contributing to XSStrange! This document provides detailed guidelines for contributing to the project, with a special focus on creating XSS vulnerability test cases.
+Thank you for your interest in contributing to XSStrange! This document provides detailed guidelines for contributing to the project, with a special focus on creating web security vulnerability test cases.
 
 ## Table of Contents
 
@@ -9,7 +9,7 @@ Thank you for your interest in contributing to XSStrange! This document provides
   - [Getting Started](#getting-started)
     - [Fork and Clone](#fork-and-clone)
     - [Development Environment](#development-environment)
-  - [Creating XSS Test Cases](#creating-xss-test-cases)
+  - [Creating Vulnerability Test Cases](#creating-vulnerability-test-cases)
     - [Test Case Structure](#test-case-structure)
     - [Using the Template](#using-the-template)
     - [Testing Your Changes](#testing-your-changes)
@@ -48,18 +48,38 @@ pip install -r requirements.txt
 python app.py
 ```
 
-## Creating XSS Test Cases
+## Creating Vulnerability Test Cases
 
 ### Test Case Structure
 
-XSStrange focuses on two main types of XSS vulnerabilities:
-- Reflected XSS
-- DOM-based XSS
+XSStrange focuses on the following types of vulnerabilities:
+
+1. Reflected XSS Variants:
+   - Basic Reflected XSS
+   - Angular-based XSS
+   - URL-based XSS
+   - Tag-based XSS
+   - Escaped XSS
+
+2. DOM-based Vulnerabilities:
+   - DOM XSS
+   - URL-based DOM XSS
+   - JavaScript Import Issues
+   - DOM Event Handler XSS
+
+3. Client-side Security Issues:
+   - Mixed Content Issues
+   - HSTS Issues
+   - Remote Inclusion XSS
+   - Insecure Third-Party Script Embedding
 
 Each test case should:
-- Demonstrate a single XSS vulnerability concept
-- Be clear and educational
+- Demonstrate a single vulnerability concept
+- Be easily reproducible
+- Not require server-side storage
 - Include proper documentation and risk assessment
+- Focus on detection capabilities
+- Present edge cases when applicable
 
 ### Using the Template
 
@@ -72,34 +92,41 @@ Each test case should:
    ```
    cases/<category>/<your_test_case>.html
    ```
-   Categories include: reflected_xss, dom_xss, etc.
+   Categories include: 
+   - reflected_xss
+   - dom_xss
+   - angular_xss
+   - clickjacking
+   - cors
+   - mixed_content
+   - remote_inclusion
 
 3. When editing the template, you can modify:
 
    a. Content within square brackets [...]:
       - Remove the brackets and replace with your content
-      - Example: Change `[ZAFİYET BAŞLIĞI]` to `Reflected XSS in Search Field`
+      - Example: Change `[VULNERABILITY TITLE]` to `Angular-based XSS in Template Binding`
       - Never include the square brackets in your final case file
 
    b. Content within HTML comments:
       ```html
-      <!-- Bu kısımda açıklama yazabilirsiniz -->
-      <!-- Burada form yapısını değiştirebilirsiniz -->
+      <!-- Add your vulnerability description here -->
+      <!-- Modify the form structure as needed -->
       ```
       - You can modify or replace these commented sections
       - Add your own implementation and descriptions
       - Keep the HTML structure intact
 
 4. Required sections to replace:
-   - Title and short description (in head section)
+   - Title and short description
    - Vulnerability type and target
    - Difficulty level (beginner/intermediate/advanced)
-   - Category (Input Handling/Authentication/File Operations/Data Handling)
+   - Category (based on vulnerability type)
    - Risk level (low/medium/high)
    - Detailed description
-   - Form elements and content
-   - JavaScript functions and event handlers
-   - Database initialization scripts (if needed)
+   - Test case implementation
+   - Expected behavior
+   - Detection hints for scanners
 
 5. Keep all HTML structure intact - only modify the placeholder content
 
