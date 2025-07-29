@@ -1,0 +1,19 @@
+{
+  "title": "Basic Reflected XSS - Welcome Message",
+  "description": "This test demonstrates a simple reflected XSS vulnerability in a greeting message. The user's name is taken from the URL parameters and directly injected into the page without sanitization.",
+  "objectives": [
+    "Identify the reflected XSS vector in the name parameter.",
+    "Craft a malicious URL to execute JavaScript code.",
+    "Understand the risks of reflecting unsanitized input in user interface elements."
+  ],
+  "hints": [
+    "Inject a <script> tag in the name parameter.",
+    "Observe how the name is displayed on the page.",
+    "Try other event-based payloads such as <img> with onerror."
+  ],
+  "difficulty": "beginner",
+  "category": "reflected",
+  "risk": "medium",
+  "status": "active",
+  "body": "<div class='welcome-container'><h2>Hoş Geldiniz!</h2><p id='welcome-msg'></p></div><script>const params = new URLSearchParams(window.location.search);const name = params.get('name');if (name) { document.getElementById('welcome-msg').innerHTML = 'Merhaba, ' + name + '!'; }</script><style>.welcome-container { max-width: 500px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; text-align: center; background: #f5f5f5; } .welcome-container h2 { color: #333; } .welcome-container p { font-size: 18px; margin-top: 20px; }</style>"
+}

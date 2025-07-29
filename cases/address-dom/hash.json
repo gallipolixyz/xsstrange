@@ -1,0 +1,17 @@
+{
+  "title": "Location Hash DOM XSS",
+  "description": "This test demonstrates a DOM-based XSS vulnerability via the location hash. Input from window.location.hash is inserted directly into the DOM without sanitization.",
+  "objectives": [
+    "Understand how window.location.hash can be abused.",
+    "Trigger a JavaScript execution using a crafted hash."
+  ],
+  "hints": [
+    "Try injecting an <img> tag with onerror attribute.",
+    "Observe how the hash is rendered in the page DOM."
+  ],
+  "difficulty": "medium",
+  "category": "address-dom",
+  "risk": "medium",
+  "status": "active",
+  "body": "<div>Hash content:</div><div id='output'></div><script>const hash = decodeURIComponent(window.location.hash.substring(1));document.getElementById('output').innerHTML = hash;</script>"
+}
