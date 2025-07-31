@@ -1,0 +1,18 @@
+{
+  "title": "Window.name via Eval",
+  "description": "Demonstrates a high-risk DOM-based XSS through window.name and eval().",
+  "objectives": [
+    "Understand how window.name can be manipulated to carry payloads.",
+    "Identify unsafe eval usage on window.name.",
+    "Trigger the execution without query parameters or forms."
+  ],
+  "hints": [
+    "You can set window.name in another tab or via a link.",
+    "Eval will execute the value in window.name."
+  ],
+  "difficulty": "high",
+  "category": "window-eval",
+  "risk": "high",
+  "status": "active",
+  "body": "<script>eval(window.name)</script>"
+}
