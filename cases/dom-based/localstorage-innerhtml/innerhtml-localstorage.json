@@ -1,0 +1,18 @@
+{
+  "title": "LocalStorage via innerHTML",
+  "description": "Demonstrates DOM-based XSS where untrusted data is retrieved from LocalStorage and directly inserted into the DOM using innerHTML.",
+  "objectives": [
+    "Understand how LocalStorage can be used to persist payloads across sessions.",
+    "Identify unsafe usage of innerHTML with data from localStorage.",
+    "Exploit the vulnerability to execute arbitrary JavaScript."
+  ],
+  "hints": [
+    "Open DevTools and set localStorage['note'] = '<img src=x onerror=alert(1)>'",
+    "Refresh the page and observe the execution."
+  ],
+  "difficulty": "medium",
+  "category": "localstorage-innerhtml",
+  "risk": "medium",
+  "status": "active",
+  "body": "<div id='note'></div><script>document.getElementById('note').innerHTML = localStorage.getItem('note');</script>"
+}
