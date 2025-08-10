@@ -1,0 +1,17 @@
+{
+  "title": "Query Dump DOM XSS",
+  "description": "This test demonstrates DOM XSS by dumping all URL query parameters into the DOM unsanitized.",
+  "objectives": [
+    "See how dumping query parameters can be dangerous.",
+    "Inject payloads into any query parameter to trigger XSS."
+  ],
+  "hints": [
+    "Try using <img src=x onerror=alert(1)> as any value.",
+    "Observe how all query params are rendered with innerHTML."
+  ],
+  "difficulty": "medium",
+  "category": "address-dom",
+  "risk": "medium",
+  "status": "active",
+  "body": "<div>Query Parameters:</div><div id='query-output'></div><script>const params = Object.fromEntries(new URLSearchParams(location.search));document.getElementById('query-output').innerHTML = JSON.stringify(params);</script>"
+}

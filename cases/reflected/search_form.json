@@ -1,0 +1,18 @@
+{
+  "title": "Basic Reflected XSS - Search Form",
+  "description": "This test demonstrates a simple reflected XSS vulnerability in a search form. User input from URL parameters is directly reflected in the page without proper sanitization, allowing attackers to inject malicious scripts.",
+  "objectives": [
+    "Identify the reflected XSS vector in the search parameter.",
+    "Craft a malicious URL to execute JavaScript code.",
+    "Understand how reflected XSS can be used for phishing attacks."
+  ],
+  "hints": [
+    "Try injecting a <script> tag in the search parameter.",
+    "Check how the search term is displayed on the page.",
+    "Look at the URL parameters after submitting the form."
+  ],  "difficulty": "beginner",
+  "category": "reflected",
+  "risk": "medium",
+  "status": "active",
+  "body": "<div class='search-container'><h2>Arama Motoru</h2><form method='GET' action=''><label for='q'>Arama Terimi:</label><input type='text' id='q' name='q' placeholder='Arama yapmak için bir terim girin...'><button type='submit'>Ara</button></form><div id='results'><script>const urlParams = new URLSearchParams(window.location.search);const query = urlParams.get('q');if (query) { document.getElementById('results').innerHTML = '<h3>Arama Sonuçları:</h3><p>\"' + query + '\" için sonuçlar:</p><div class=\"search-results\">Sonuç bulunamadı.</div>'; }</script></div></div><style>.search-container { max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; } .search-container h2 { color: #333; margin-bottom: 20px; } .search-container form { margin-bottom: 20px; } .search-container label { display: block; margin-bottom: 5px; font-weight: bold; } .search-container input[type='text'] { width: 70%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; } .search-container button { padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 10px; } .search-container button:hover { background-color: #0056b3; } #results { margin-top: 20px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #007bff; } .search-results { margin-top: 10px; color: #666; }</style>"
+}

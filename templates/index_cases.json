@@ -366,5 +366,23 @@
       ],
       "resources": []
     }
+  },
+  
+  {
+    "title": "Location Hash DOM XSS",
+    "path": "address-dom/hash",
+    "difficulty": "medium",
+    "category": "address-dom",
+    "risk": "medium",
+    "status": "active"
+  },
+  {
+    "title": "Query Dump DOM XSS",
+    "path": "address-dom/query-dump",
+    "difficulty": "medium",
+    "category": "address-dom",
+    "risk": "medium",
+    "status": "active"
   }
+
 ]
