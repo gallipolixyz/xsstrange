@@ -366,5 +366,26 @@
       ],
       "resources": []
     }
+  },
+  {
+  "category": "address-dom",
+  "tag": "Medium",
+  "title": "Address DOM XSS via URL hash",
+  "description": "DOM-based XSS vulnerability where user input from the URL hash is injected into the page content without proper sanitization.",
+  "status": "Active",
+  "details": {
+    "long_description": "Address DOM XSS via URL hash vulnerabilities exploit the browser's location hash to inject malicious scripts via DOM manipulation. Users can craft payloads in the URL fragment to execute JavaScript.",
+    "impact": [
+      "Phishing",
+      "Session hijacking"
+    ],
+    "vectors": [
+      "URL hash manipulation",
+      "DOM access"
+    ],
+    "resources": [
+      "cases/address-dom/dom-xss-url-hash.json"
+    ]
   }
+}
 ]

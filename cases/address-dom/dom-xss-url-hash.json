@@ -1,0 +1,19 @@
+{
+  "title": "DOM XSS via iframe srcdoc",
+  "description": "This case demonstrates a DOM-based XSS vulnerability where user input is injected into an iframe's srcdoc attribute without sanitization.",
+  "objectives": [
+    "Enter input into the text field.",
+    "Observe how the input is injected into the iframe srcdoc attribute.",
+    "Craft a payload that triggers XSS."
+  ],
+  "hints": [
+    "Type some HTML tags into the input field.",
+    "Consider how iframe srcdoc renders user input directly."
+  ],
+  "difficulty": "medium",
+  "category": "address-dom",
+  "risk": "medium",
+  "status": "active",
+  "body": "<div id='output'></div>\n<script>\n  const params = new URLSearchParams(window.location.search);\n  const addr = params.get('address') || 'default';\n  document.getElementById('output').innerHTML = `<img src='${addr}'>`;\n</script>"
+}
+
