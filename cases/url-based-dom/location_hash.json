@@ -1,0 +1,18 @@
+{
+  "title": "URL-based DOM XSS",
+  "description": "Demonstrates a DOM-based XSS where unsanitized content from the URL fragment (hash) is directly written into the DOM using innerHTML. The vulnerability is exploitable by manipulating the URL (fragment/hash).",
+  "objectives": [
+    "Find the DOM XSS vector sourced from the URL fragment (location.hash).",
+    "Exploit the vulnerability to execute JavaScript by placing payloads into the URL."
+  ],
+  "hints": [
+    "Inspect the page's JavaScript that reads window.location.hash or window.location.href.",
+    "Try placing a payload in the URL fragment (after #). Example: http://.../#<script>alert(1)</script>",
+    "If payload doesn't run, try HTML attribute-based payloads like <img src=x onerror=alert(1)> and URL-encode them."
+  ],
+  "difficulty": "medium",
+  "category": "url-dom",
+  "risk": "medium",
+  "status": "active",
+  "body": "<div class='case-wrapper'>\n  <h2>URL-based DOM XSS Example</h2>\n  <p>Payload from the URL fragment (<code>location.hash</code>) will be rendered below without sanitization.</p>\n\n  <label for='example'>Try modifying the URL after the <code>#</code> (fragment):</label>\n  <div id='vuln' style='padding:8px;border:1px solid #ccc;margin-top:8px;min-height:24px;'>Fragment content will appear here</div>\n\n  <script>\n    // Read the URL fragment (everything after the #)\n    // Vulnerable: directly writes content into the DOM via innerHTML\n    (function(){\n      // remove leading '#'\n      var frag = window.location.hash ? window.location.hash.substring(1) : '';\n\n      // decode percent-encoding so users can supply encoded payloads\n      try { frag = decodeURIComponent(frag); } catch(e) { /* ignore malformed encoding */ }\n\n      // Vulnerable sink: innerHTML with untrusted source (URL fragment)\n      var out = document.getElementById('vuln');\n      if(frag) {\n        out.innerHTML = frag; // <-- DOM XSS: untrusted content written to innerHTML\n      } else {\n        out.innerHTML = '<em>No fragment provided. Add a payload after # in the URL.</em>';\n      }\n    })();\n  </script>\n</div>"
+}
