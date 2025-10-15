@@ -45,9 +45,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PATH="/opt/venv/bin:$PATH"
 
-# Install only essential runtime dependencies
+# Install only essential runtime dependencies including PHP
 RUN apk add --no-cache \
     libstdc++ \
+    php \
+    php-cli \
     && rm -rf /var/cache/apk/*
 
 # Create non-root user for security

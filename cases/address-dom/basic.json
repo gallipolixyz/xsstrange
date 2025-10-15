@@ -13,5 +13,6 @@
   "category": "address-dom",
   "risk": "medium",
   "status": "active",
+  "type": "html",
   "body": "<div id='address'></div><script>const params = new URLSearchParams(window.location.search);document.getElementById('address').innerHTML = params.get('address');</script>"
 }

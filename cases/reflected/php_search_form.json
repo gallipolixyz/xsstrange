@@ -1,0 +1,22 @@
+{
+  "title": "Basic Reflected XSS - PHP Search Form",
+  "description": "This test demonstrates a simple reflected XSS vulnerability in a PHP search form. User input from URL parameters is directly reflected in the page without proper sanitization, allowing attackers to inject malicious scripts.",
+  "objectives": [
+    "Identify the reflected XSS vector in the search parameter.",
+    "Craft a malicious URL to execute JavaScript code.",
+    "Understand how reflected XSS can be exploited in PHP applications.",
+    "Compare PHP-based XSS with client-side XSS."
+  ],
+  "hints": [
+    "Try injecting a <script> tag in the search parameter.",
+    "Check how the search term is displayed on the page.",
+    "Look at the URL parameters after submitting the form.",
+    "Notice the difference between client-side and server-side reflection."
+  ],
+  "difficulty": "beginner",
+  "category": "reflected",
+  "risk": "medium",
+  "status": "active",
+  "type": "php",
+  "php_file": "php_search_form.php"
+}
