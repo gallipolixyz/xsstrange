@@ -22,6 +22,9 @@
                     <span class="difficulty-badge {{ difficulty|lower }}">{{ difficulty|title }}</span>
                     <span class="category">Category: {{ category|title }}</span>
                     <span class="status-text">Status: {{ status|title }}</span>
+                    {% if type %}
+                    <span class="case-type {{ type|lower }}">{{ type|upper }} Case</span>
+                    {% endif %}
                 </div>
                 <div class="description">
                     {{ description }}
