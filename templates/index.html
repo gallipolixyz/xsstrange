@@ -1,78 +1,106 @@
 <!DOCTYPE html>
-<html data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
-    <title>Xsstrange - Web Security Testing Platform</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Xsstrange - Open Source Web Security Testing Platform for learning and testing web vulnerabilities">
+    <meta name="keywords" content="web security, penetration testing, XSS, SQL injection, security tools">
+    <title>XSStrange - Web Security Testing Platform</title>
+
     <link rel="icon" type="image/png" href="/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <div class="matrix-bg"></div>
+    <div class="matrix-bg" aria-hidden="true"></div>
+
     <div class="container">
         <header class="main-header">
             <div class="logo-container">
                 <div class="glitch-wrapper">
-                    <h1 class="glitch" data-text="Xsstrange">Xsstrange</h1>
+                    <h1 class="glitch" data-text="Xsstrange">XSStrange</h1>
                 </div>
-                <div class="header-subtitle">Open Source Web Security Testing Platform</div>
+                <p class="header-subtitle">Open Source Web Security Testing Platform</p>
             </div>
         </header>
 
-        <div class="terminal-section">
+        <section class="terminal-section" role="region" aria-label="Project Overview">
             <div class="terminal-header">
-                <span class="terminal-title">Project Overview</span>
-                <div class="terminal-buttons">
-                    <span></span><span></span><span></span>
+                <span class="terminal-title">$ Project Overview</span>
+                <div class="terminal-buttons" aria-hidden="true">
+                    <span title="Close"></span>
+                    <span title="Minimize"></span>
+                    <span title="Maximize"></span>
                 </div>
             </div>
             <div class="terminal-content">
-                <span class="prompt">$</span> Welcome to Xsstrange - A Gallipoli Community Project
-                <p>Welcome to Xsstrange! This project aims to create a testing environment for web vulnerability scanning tools. 
+                <span class="prompt" aria-hidden="true">$</span> Welcome to XSStrange - A Gallipoli Community Project
+                <p>Welcome to XSStrange! This project aims to create a testing environment for web vulnerability scanning tools. 
                    Our platform can be used to learn automated security tools, observe their features, and evaluate their effectiveness 
                    in different security testing scenarios.</p>
             </div>
-        </div>
+        </section>
 
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="card-icon"><i class="fas fa-code"></i></div>
-                <h3>Python & Flask</h3>
-                <p>Modern backend with Python and Flask framework</p>
+        <section class="features-section" aria-label="Key Features">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Python & Flask</h3>
+                    <p>Modern backend with Python and Flask framework</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <i class="fas fa-docker"></i>
+                    </div>
+                    <h3>Docker Ready</h3>
+                    <p>Containerized environment for easy deployment</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security Focus</h3>
+                    <p>Specialized in web vulnerability testing</p>
+                </div>
             </div>
-            <div class="feature-card">
-                <div class="card-icon"><i class="fas fa-docker"></i></div>
-                <h3>Docker Ready</h3>
-                <p>Containerized environment for easy deployment</p>
-            </div>
-            <div class="feature-card">
-                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>Security Focus</h3>
-                <p>Specialized in web vulnerability testing</p>
-            </div>
-        </div>
+        </section>
 
-        <section class="test-environments">
-            <h2><span class="bracket">[</span> Test Environments <span class="bracket">]</span></h2>
-            <div class="toggle-container">
-                <button class="toggle-eye-btn" title="Show/Hide Empty Categories">
-                    <i class="fas fa-eye"></i>
-                </button>
-            </div>
+        <section class="test-environments" aria-label="Test Environments">
+            <h2>
+                <span class="bracket" aria-hidden="true">[</span> 
+                Test Environments 
+                <span class="bracket" aria-hidden="true">]</span>
+            </h2>
+            
             <div class="test-grid-wrapper">
                 <div class="test-grid">
                     {% for case in cases %}
-                    <a href="/cases/{{ case.category }}" class="test-card{% if case.is_empty %} empty-case{% endif %}" {% if case.is_empty %}style="display:none;"{% endif %}>
+                    <a href="/cases/{{ case.category }}" 
+                       class="test-card{% if case.is_empty %} empty-case{% endif %}" 
+                       {% if case.is_empty %}style="display:none;"{% endif %}
+                       aria-label="{{ case.title }} - {{ case.description }}">
                         <div class="card-header">
-                            <span class="card-tag {{ case.tag|lower }}"><span class="dot"></span>{{ case.tag }}</span>
+                            <span class="card-tag {{ case.tag|lower }}" role="status">
+                                <span class="dot" aria-hidden="true"></span>
+                                {{ case.tag }}
+                            </span>
                             <h3>{{ case.title }}</h3>
                         </div>
                         <p>{{ case.description }}</p>
                         <div class="card-footer">
-                            <span class="status-dot"></span>
+                            <span class="status-dot" aria-hidden="true"></span>
                             <span class="status-text">{{ case.status }}</span>
-                            <span class="case-count">{{ case.case_count }} case</span>
-                            <span class="card-arrow">→</span>
+                            <span class="case-count">{{ case.case_count }} case{{ 's' if case.case_count != 1 else '' }}</span>
+                            <span class="card-arrow" aria-hidden="true">→</span>
                         </div>
                     </a>
                     {% endfor %}
@@ -80,47 +108,104 @@
             </div>
         </section>
 
-        <section class="contact">
-            <h2><span class="bracket">[</span> Contact & Community <span class="bracket">]</span></h2>
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <div class="card-icon"><i class="fab fa-github"></i></div>
-                    <h3>GitHub</h3>
-                    <p>Contribute to our open source project</p>
-                    <a href="https://github.com/gallipolixyz/xsstrange" target="_blank" class="contact-link">
-                        <i class="fab fa-github"></i> github.com/gallipolixyz/xsstrange
-                    </a>
-                </div>
-                <div class="contact-card">
-                    <div class="card-icon"><i class="fas fa-envelope"></i></div>
-                    <h3>Email</h3>
-                    <p>Get in touch with our team</p>
-                    <a href="mailto:info@gallipoli.xyz" class="contact-link">
-                        <i class="fas fa-envelope"></i> info@gallipoli.xyz
-                    </a>
-                </div>
-                <div class="contact-card">
-                    <div class="card-icon"><i class="fab fa-twitter"></i></div>
-                    <h3>X (Twitter)</h3>
-                    <p>Follow us for updates</p>
-                    <a href="https://x.com/gallipolixyz" target="_blank" class="contact-link">
-                        <i class="fab fa-twitter"></i> @gallipolixyz
-                    </a>
-                </div>
+       
+
+        <!-- ✅ Improved Footer -->
+        <footer class="template-footer">
+            <section class="footer-grid">
+                <article>
+                    <h3><i class="fas fa-shield-alt" aria-hidden="true"></i> Security Testing</h3>
+                    <p>Learn web security through hands-on practice and real-world scenarios.</p>
+                </article>
+
+                <article>
+                    <h3><i class="fas fa-code" aria-hidden="true"></i> Open Source</h3>
+                    <p>Contribute, fork, and help improve the XSStrange platform on GitHub.</p>
+                </article>
+
+                <article>
+                    <h3><i class="fas fa-users" aria-hidden="true"></i> Community</h3>
+                    <p>Join our growing security testing community and share your findings.</p>
+                </article>
+            </section>
+
+            <div class="footer-social">
+                <a href="https://github.com/gallipolixyz/xsstrange" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:info@gallipoli.xyz" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://x.com/gallipolixyz" target="_blank" rel="noopener noreferrer" aria-label="Twitter (X)">
+                    <i class="fab fa-twitter"></i>
+                </a>
             </div>
-        </section>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 <strong>XSStrange</strong> — A Gallipoli Community Project</p>
+            </div>
+        </footer>
     </div>
+
     <script>
-        const html = document.documentElement;
-        html.setAttribute('data-theme', 'dark'); // Force dark mode
+        'use strict';
+        document.documentElement.setAttribute('data-theme', 'dark');
+
         document.addEventListener('DOMContentLoaded', function() {
-            const btn = document.querySelector('.toggle-eye-btn');
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.test-card.empty-case').forEach(function(card) {
-                    card.style.display = (card.style.display === 'none' || card.style.display === '') ? 'flex' : 'none';
+            initToggleButton();
+            addSmoothScroll();
+            addKeyboardNavigation();
+        });
+
+        function initToggleButton() {
+            const toggleBtn = document.getElementById('toggleEmptyBtn');
+            if (!toggleBtn) return;
+            const icon = toggleBtn.querySelector('i');
+            let isShowing = false;
+            toggleBtn.addEventListener('click', function() {
+                const emptyCards = document.querySelectorAll('.test-card.empty-case');
+                isShowing = !isShowing;
+                emptyCards.forEach(card => card.style.display = isShowing ? 'flex' : 'none');
+                icon.className = isShowing ? 'fas fa-eye-slash' : 'fas fa-eye';
+                toggleBtn.setAttribute('aria-label', isShowing ? 'Hide empty categories' : 'Show empty categories');
+            });
+        }
+
+        function addSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 });
             });
-        });
+        }
+
+        function addKeyboardNavigation() {
+            const cards = document.querySelectorAll('.test-card, .contact-card, .feature-card');
+            cards.forEach(card => {
+                card.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+        }
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            document.querySelectorAll('.test-card, .feature-card, .contact-card').forEach(el => observer.observe(el));
+        }
     </script>
 </body>
-</html> 
+</html>

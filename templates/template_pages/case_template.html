@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html data-theme="dark">
 <head>
-    <title>{{ title }} - Xsstrange</title>
+    <title>{{ title }} - XSStrange</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/logo.png">
     <link rel="stylesheet" href="/style.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <div class="matrix-bg"></div>
     <div class="container">
         <nav class="breadcrumb">
             <a href="/">Home</a> / <a href="/cases/{{ category|default('') }}">{{ category|default('')|title }}</a> / <span>{{ title }}</span>
         </nav>
+
         <div class="info-section">
             <div class="info-header">
                 <h1>{{ title }}</h1>
                 <div class="severity-indicator {{ risk|lower }}">{{ risk|title }} Risk</div>
             </div>
+
             <div class="info-content">
                 <div class="case-meta">
                     <span class="difficulty-badge {{ difficulty|lower }}">{{ difficulty|title }}</span>
@@ -26,36 +30,166 @@
                     <span class="case-type {{ type|lower }}">{{ type|upper }} Case</span>
                     {% endif %}
                 </div>
+
                 <div class="description">
                     {{ description }}
                 </div>
+
                 {% if body %}
                 <div class="case-content">
                     {{ body | safe }}
                 </div>
                 {% endif %}
+
                 <div class="info-grid">
                     <div class="info-card">
-                        <h3>Objectives</h3>
+                        <h3>🎯 Objectives</h3>
                         <ul>
                             {% for objective in objectives %}
                             <li>{{ objective }}</li>
                             {% endfor %}
                         </ul>
                     </div>
-                    <div class="info-card">
-                        <h3>Hints</h3>
-                        <ul>
+                </div>
+
+                <!-- Collapsible Hints Section -->
+                {% if hints and hints|length > 0 %}
+                <div class="hints-section" id="hintsSection">
+                    <div class="hints-header" 
+                         onclick="toggleHints()" 
+                         role="button" 
+                         tabindex="0"
+                         aria-expanded="false"
+                         aria-controls="hintsContent"
+                         onkeypress="handleKeyPress(event)">
+                        <div class="hints-title">
+                            <i class="fas fa-lightbulb hints-icon"></i>
+                            <span>Hints & Tips</span>
+                            <span class="hints-badge">{{ hints|length }} HINT{{ 's' if hints|length != 1 else '' }}</span>
+                        </div>
+                        <div class="toggle-indicator">
+                            <span>Click to reveal hints</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="hints-content" id="hintsContent">
+                        <div class="hints-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>
+                                <strong>Spoiler Alert!</strong> Try to solve the challenge yourself first. 
+                                Use hints only when you're stuck.
+                            </p>
+                        </div>
+
+                        <ul class="hints-list">
                             {% for hint in hints %}
-                            <li>{{ hint }}</li>
+                            <li class="hint-item">
+                                <div class="hint-text">
+                                    <span class="hint-number">{{ loop.index }}</span>
+                                    <span>{{ hint }}</span>
+                                </div>
+                            </li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
+                {% else %}
+                <div class="hints-section">
+                    <div class="hints-header">
+                        <div class="hints-title">
+                            <i class="fas fa-lightbulb hints-icon"></i>
+                            <span>Hints & Tips</span>
+                        </div>
+                    </div>
+                    <div class="hints-empty">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>No hints available for this challenge. Good luck!</p>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
-    </div>
+        <footer class="template-footer">
+            <section class="footer-grid">
+                <article>
+                    <h3><i class="fas fa-shield-alt" aria-hidden="true"></i> Security Testing</h3>
+                    <p>Learn web security through hands-on practice and real-world scenarios.</p>
+                </article>
 
-    {{ footer | safe }}
+                <article>
+                    <h3><i class="fas fa-code" aria-hidden="true"></i> Open Source</h3>
+                    <p>Contribute, fork, and help improve the XSStrange platform on GitHub.</p>
+                </article>
+
+                <article>
+                    <h3><i class="fas fa-users" aria-hidden="true"></i> Community</h3>
+                    <p>Join our growing security testing community and share your findings.</p>
+                </article>
+            </section>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 <strong>XSStrange</strong> — A Gallipoli Community Project</p>
+            </div>
+        </footer>
+    </div>
+ 
+
+    <script>
+        'use strict';
+        
+        const html = document.documentElement;
+        html.setAttribute('data-theme', 'dark');
+
+        function toggleHints() {
+            const section = document.getElementById('hintsSection');
+            const header = section.querySelector('.hints-header');
+            const isExpanded = section.classList.contains('expanded');
+            
+            section.classList.toggle('expanded');
+            header.setAttribute('aria-expanded', !isExpanded);
+            
+            const toggleText = section.querySelector('.toggle-indicator span');
+            if (toggleText) {
+                toggleText.textContent = isExpanded ? 'Click to reveal hints' : 'Click to hide hints';
+            }
+            
+            const caseId = '{{ title|replace(" ", "-")|lower }}';
+            localStorage.setItem(`hints-${caseId}`, !isExpanded);
+            
+            if (!isExpanded) {
+                setTimeout(() => {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleHints();
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const caseId = '{{ title|replace(" ", "-")|lower }}';
+            const savedState = localStorage.getItem(`hints-${caseId}`);
+        });
+
+        const hintsSection = document.getElementById('hintsSection');
+        if (hintsSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            observer.observe(hintsSection);
+        }
+    </script>
 </body>
-</html> 
+</html>
