@@ -18,5 +18,5 @@
   "risk": "medium",
   "status": "active",
   "type": "php",
-  "php_file": "php_search_form.php"
+  "php": "<?php\n// Basic Reflected XSS - PHP Search Form\n// This demonstrates a reflected XSS vulnerability in PHP\n\n$query = isset($_GET['q']) ? $_GET['q'] : '';\n$results = '';\n\nif ($query) {\n    $results = \"<h3>Search Results:</h3>\";\n    $results .= \"<p>\\\"$query\\\" search results:</p>\";\n    $results .= \"<div class='search-results'>No results found.</div>\";\n}\n?>\n\n<!DOCTYPE html>\n<html>\n<body>\n    <div class=\"search-container\">\n        <h2>PHP Search Engine</h2>\n        <form method=\"GET\" action=\"\">\n            <label for=\"q\">Search Term:</label>\n            <input type=\"text\" id=\"q\" name=\"q\" placeholder=\"Enter a search term...\" value=\"<?php echo $query; ?>\">\n            <button type=\"submit\">Search</button>\n        </form>\n        \n        <div id=\"results\">\n            <?php echo $results; ?>\n        </div>\n    </div>\n</body>\n</html>"
 }
