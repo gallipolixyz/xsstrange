@@ -1,0 +1,18 @@
+{
+    "title": "Location Hash via inner HTML",
+    "description": "Demonstrates a DOM-based XSS where unsanitized content from the location hash is directly written into the DOM using innerHTML.",
+    "objectives": [
+      "Identify the DOM XSS vector.",
+      "Exploit the vulnerability to execute JavaScript."
+    ],
+    "hints": [
+      "Try injecting a <script> tag in the location hash parameter.",
+      "Check how the location hash is rendered in the DOM."
+    ],
+    "difficulty": "medium",
+    "category": "dom-based",
+    "risk": "medium",
+    "status": "active",
+    "type": "html",
+    "body": "<div id='location'></div><script>document.getElementById('location').innerHTML = decodeURIComponent(window.location.hash.substring(1));</script>"
+}
