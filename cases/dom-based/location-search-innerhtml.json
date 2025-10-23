@@ -1,18 +1,18 @@
 {
-  "title": "Basic DOM XSS",
+  "title": "Location Search via inner HTML",
   "description": "This test demonstrates a simple DOM-based XSS vulnerability in the address input field. User input is reflected into the DOM without proper sanitization.",
   "objectives": [
     "Identify the DOM XSS vector.",
     "Exploit the vulnerability to execute JavaScript."
   ],
   "hints": [
-    "Try injecting a <script> tag.",
-    "Check how the address is rendered in the DOM."
+    "Try injecting a <script> tag in the location search parameter.",
+    "Check how the location search is rendered in the DOM."
   ],
   "difficulty": "medium",
   "category": "address-dom",
   "risk": "medium",
   "status": "active",
   "type": "html",
-  "body": "<div id='address'></div><script>const params = new URLSearchParams(window.location.search);document.getElementById('address').innerHTML = params.get('address');</script>"
+  "body": "<div id='location'></div><script>const params = new URLSearchParams(window.location.search);document.getElementById('location').innerHTML = params.get('location');</script>"
 }

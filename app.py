@@ -22,26 +22,8 @@ logging.basicConfig(
 )
 
 
-def execute_php_case(php_file_path, request_data=None):
-    """
-    PHP dosyasını güvenli bir şekilde çalıştırır
-    
-    Args:
-        php_file_path (str): PHP dosyasının yolu
-        request_data (dict): Request parametreleri
-        
-    Returns:
-        str: PHP output'u veya hata mesajı
-    """
+def execute_php_case(php_code, request_data=None):
     try:
-        if not php_file_path.startswith(cases_dir):
-            logging.error(f"Güvenlik ihlali: PHP dosyası cases dizini dışında: {php_file_path}")
-            return "<div class='error'>Güvenlik ihlali: Geçersiz dosya yolu</div>"
-        
-        if not os.path.exists(php_file_path):
-            logging.error(f"PHP dosyası bulunamadı: {php_file_path}")
-            return "<div class='error'>PHP dosyası bulunamadı</div>"
-        
         env = os.environ.copy()
         env['REQUEST_METHOD'] = request_data.get('method', 'GET') if request_data else 'GET'
         
@@ -51,22 +33,16 @@ def execute_php_case(php_file_path, request_data=None):
             
             php_input = f"<?php\n"
             for key, value in request_data['params'].items():
-                safe_key = json.dumps(str(key))[1:-1]  
-                safe_value = json.dumps(str(value))[1:-1]  
+                safe_key = json.dumps(str(key))[1:-1]
+                safe_value = json.dumps(str(value))[1:-1]
                 php_input += f"$_GET[{json.dumps(key)}] = {json.dumps(str(value))};\n"
             
             php_input += f"$_SERVER['QUERY_STRING'] = {json.dumps(query_string)};\n"
             php_input += f"$_SERVER['REQUEST_METHOD'] = {json.dumps(request_data.get('method', 'GET'))};\n"
             php_input += f"?>\n"
             
-           
-            with open(php_file_path, 'r', encoding='utf-8') as f:
-                original_php = f.read()
-            
-            
-            php_input += original_php
+            php_input += php_code
         
-       
         php_cmd = [
             'php', 
             '-d', 'disable_functions=exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source', 
@@ -77,31 +53,29 @@ def execute_php_case(php_file_path, request_data=None):
             '-d', 'memory_limit=64M'
         ]
         
-        # PHP dosyasını güvenli parametrelerle çalıştır
         if request_data and 'params' in request_data:
-            # Parametreler varsa, stdin ile gönder
             result = subprocess.run(
                 php_cmd,
                 input=php_input,
                 env=env,
                 capture_output=True,
                 text=True,
-                timeout=10,  # 10 saniye timeout
-                cwd=os.path.dirname(php_file_path)
+                timeout=10,
+                cwd=cases_dir
             )
         else:
-            # Parametre yoksa, dosyayı direkt çalıştır
             result = subprocess.run(
-                php_cmd + [php_file_path],
+                php_cmd,
+                input=php_code,
                 env=env,
                 capture_output=True,
                 text=True,
-                timeout=10,  # 10 saniye timeout
-                cwd=os.path.dirname(php_file_path)
+                timeout=10,
+                cwd=cases_dir
             )
         
         logging.info(f"PHP execution result - returncode: {result.returncode}")
-        logging.info(f"PHP stdout: {result.stdout[:200]}...")  # İlk 200 karakter
+        logging.info(f"PHP stdout: {result.stdout[:200]}...")
         if result.stderr:
             logging.info(f"PHP stderr: {result.stderr}")
         
@@ -117,6 +91,7 @@ def execute_php_case(php_file_path, request_data=None):
     except Exception as e:
         logging.error(f"PHP execution beklenmeyen hatası: {str(e)}")
         return f"<div class='error'>PHP execution hatası: {str(e)}</div>"
+
 
 
 @app.route("/")
@@ -250,12 +225,10 @@ def case(case_category, sub_category):
             
             if case_type == "php":
                 # PHP case'i çalıştır
-                php_file = data.get("php_file")
-                if not php_file:
-                    logging.error(f"PHP case'inde php_file belirtilmemiş: {json_path}")
+                php_code = data.get("php")
+                if not php_code:
+                    logging.error(f"PHP case'inde php kodu belirtilmemiş: {json_path}")
                     abort(500)
-                
-                php_path = os.path.join(BASE_DIR, "cases", case_category, php_file)
                 
                 # Request data'yı hazırla
                 request_data = {
@@ -264,7 +237,7 @@ def case(case_category, sub_category):
                 }
                 
                 # PHP dosyasını çalıştır
-                php_output = execute_php_case(php_path, request_data)
+                php_output = execute_php_case(php_code, request_data)
                 
                 # PHP output'unu body olarak ekle
                 data["body"] = php_output
