@@ -973,10 +973,11 @@ section h2 {
 /* ==========================================
    FOOTER
    ========================================== */
+   
 
 .template-footer {
-    margin-top: 5rem;
-    padding: 3rem 2rem;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
     background: var(--gradient-card);
     border-radius: 20px;
     border: 1px solid var(--border-color);
@@ -987,8 +988,8 @@ section h2 {
 .template-footer section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2.5rem;
-    margin-bottom: 2.5rem;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .template-footer article {
@@ -1020,8 +1021,8 @@ section h2 {
 }
 
 .template-footer>div {
-    margin-top: 2.5rem;
-    padding-top: 2.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
 }
 
@@ -1479,12 +1480,12 @@ button:disabled {
 
     /* Footer */
     .template-footer {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1rem;
     }
 
     .template-footer section {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
     }
 }
 
@@ -1857,7 +1858,7 @@ textarea:focus-visible {
 .template-footer {
     background: var(--background-color, #151930);
     border-top: 1px solid var(--border-color, #222);
-    padding: 3rem 1rem;
+    padding: 1.5rem 1rem;
     color: var(--text-color, #ddd);
     font-family: 'Inter', sans-serif;
     text-align: center;
@@ -1867,8 +1868,8 @@ textarea:focus-visible {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .footer-grid article {
@@ -1892,7 +1893,7 @@ textarea:focus-visible {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
-    margin: 1rem 0 2rem;
+    margin: 0.75rem 0 1.5rem;
 }
 
 .footer-social a {
@@ -1908,7 +1909,7 @@ textarea:focus-visible {
 
 .footer-bottom {
     border-top: 1px solid var(--border-color, #222);
-    padding-top: 1rem;
+    padding-top: 0.75rem;
     font-size: 0.9rem;
     opacity: 0.7;
 }
