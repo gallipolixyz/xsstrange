@@ -80,17 +80,17 @@ def execute_php_case(php_code, request_data=None):
             logging.info(f"PHP stderr: {result.stderr}")
         
         if result.returncode != 0:
-            logging.error(f"PHP execution hatası: {result.stderr}")
-            return f"<div class='error'>PHP execution hatası: {result.stderr}</div>"
+            logging.error(f"PHP execution error: {result.stderr}")
+            return f"<div class='error'>PHP execution error: {result.stderr}</div>"
         
         return result.stdout
         
     except subprocess.TimeoutExpired:
         logging.error("PHP execution timeout")
-        return "<div class='error'>PHP execution timeout (10 saniye)</div>"
+        return "<div class='error'>PHP execution timeout (10 seconds)</div>"
     except Exception as e:
-        logging.error(f"PHP execution beklenmeyen hatası: {str(e)}")
-        return f"<div class='error'>PHP execution hatası: {str(e)}</div>"
+        logging.error(f"PHP execution unexpected error: {str(e)}")
+        return f"<div class='error'>PHP execution error: {str(e)}</div>"
 
 
 
@@ -128,27 +128,24 @@ def logo():
 @app.route("/cases/<case_category>")
 def case_category(case_category):
     try:
-        # Kategori kontrolü
         if case_category not in allowed_categories:
-            logging.error(f"Geçersiz kategori: {case_category}")
+            logging.error(f"Invalid category: {case_category}")
             abort(404)
 
-        # index_cases.json'dan kategori bilgilerini al
         cases_json_path = os.path.join(BASE_DIR, "templates", "index_cases.json")
         with open(cases_json_path, "r", encoding="utf-8") as f:
             categories = json.load(f)
         
         category = next((c for c in categories if c["category"] == case_category), None)
         if not category:
-            logging.error(f"Kategori bulunamadı: {case_category}")
+            logging.error(f"Category not found: {case_category}")
             abort(404)
 
-        # Test case'leri oku
         case_dir = os.path.join(BASE_DIR, "cases", case_category)
         test_cases = []
         
         if not os.path.exists(case_dir):
-            logging.error(f"Kategori dizini bulunamadı: {case_dir}")
+            logging.error(f"Category directory not found: {case_dir}")
             abort(404)
 
         json_files = [f for f in os.listdir(case_dir) if f.endswith('.json')]
@@ -157,9 +154,7 @@ def case_category(case_category):
             try:
                 with open(fpath, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                    # Temel alanların varlığını kontrol et
                     required_fields = ["title", "description", "category"]
-                    # Eğer alanlar eksikse varsayılan değerler ata
                     data.setdefault("title", "Untitled")
                     data.setdefault("description", "No description available")
                     data.setdefault("category", case_category)
@@ -169,23 +164,21 @@ def case_category(case_category):
                         data["slug"] = os.path.splitext(fname)[0]
                         test_cases.append(data)
                     else:
-                        logging.warning(f"Eksik alanlar var: {fpath}")
+                        logging.warning(f"Missing fields: {fpath}")
             except json.JSONDecodeError as e:
-                logging.error(f"JSON okuma hatası {fpath}: {str(e)}")
+                logging.error(f"JSON reading error {fpath}: {str(e)}")
                 continue
             except Exception as e:
-                logging.error(f"Beklenmeyen hata {fpath}: {str(e)}")
+                logging.error(f"Unexpected error {fpath}: {str(e)}")
                 continue
 
         if not test_cases:
-            logging.warning(f"Kategoride test case bulunamadı: {case_category}")
+            logging.warning(f"No test cases found in category: {case_category}")
 
-        logging.info(f"Toplam {len(test_cases)} test case bulundu: {case_category}")
-            # Kategori detaylarını güncelle
+        logging.info(f"Total {len(test_cases)} test cases found: {case_category}")
         if "details" not in category:
             category["details"] = {}
         
-        # Test case'leri kategori detaylarına ekle
         category["details"]["test_cases"] = []
         for test_case in sorted(test_cases, key=lambda x: x.get("title", "")):
             case_details = {
@@ -203,7 +196,7 @@ def case_category(case_category):
         )
 
     except Exception as e:
-        logging.error(f"Kategori işlenirken hata: {str(e)}")
+        logging.error(f"Error processing category: {str(e)}")
         abort(500)
 
 
@@ -220,26 +213,21 @@ def case(case_category, sub_category):
             with open(json_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
             
-            # Case type kontrolü
             case_type = data.get("type", "html")
             
             if case_type == "php":
-                # PHP case'i çalıştır
                 php_code = data.get("php")
                 if not php_code:
-                    logging.error(f"PHP case'inde php kodu belirtilmemiş: {json_path}")
+                    logging.error(f"PHP code not specified in PHP case: {json_path}")
                     abort(500)
                 
-                # Request data'yı hazırla
                 request_data = {
                     'method': request.method,
                     'params': dict(request.args) if request.args else {}
                 }
                 
-                # PHP dosyasını çalıştır
                 php_output = execute_php_case(php_code, request_data)
                 
-                # PHP output'unu body olarak ekle
                 data["body"] = php_output
                 
                 return render_template(
@@ -247,14 +235,13 @@ def case(case_category, sub_category):
                     **data
                 )
             else:
-                # HTML case'i (varsayılan)
                 return render_template(
                     "template_pages/case_template.html",
                     **data
                 )
                 
         except Exception as e:
-            logging.error(f"Template oluşturma hatası: {str(e)}")
+            logging.error(f"Template creation error: {str(e)}")
             abort(500)
     
     abort(404)
