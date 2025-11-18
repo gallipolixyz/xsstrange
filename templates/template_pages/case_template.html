@@ -8,20 +8,127 @@
     <link rel="stylesheet" href="/style.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* INTERACTION BOX STYLES */
+        .interaction-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        /* URL SIMULATOR BAR */
+        .url-simulator {
+            background: #0f0f0f;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #666;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        .url-static { color: #888; }
+        .url-param-key { color: #fff; }
+        .url-param-val { color: #e94560; font-weight: bold; }
+        
+        .blinking-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: #e94560;
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* FORM ELEMENTS */
+        .interaction-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .payload-input {
+            flex-grow: 1;
+            padding: 14px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background: #1a1a1a;
+            color: #00ff9d;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            min-width: 200px;
+            transition: border-color 0.3s;
+        }
+        .payload-input:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+        .inject-btn {
+            padding: 10px 30px;
+            background: #e94560;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .inject-btn:hover {
+            background: #ff2e4d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        }
+
+        /* EDUCATIONAL NOTE */
+        .edu-note {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #aaa;
+            background: rgba(0, 123, 255, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #007bff;
+            line-height: 1.5;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
+
         <nav class="breadcrumb">
-            <a href="/">Home</a> / <a href="/cases/{{ category|default('') }}">{{ category|default('')|title }}</a> / <span>{{ title }}</span>
+            <a href="/">Home</a> /
+            <a href="/cases/{{ category|default('') }}">{{ category|default('')|title }}</a> /
+            <span>{{ title }}</span>
         </nav>
 
         <div class="info-section">
+
             <div class="info-header">
                 <h1>{{ title }}</h1>
                 <div class="severity-indicator {{ risk|lower }}">{{ risk|title }} Risk</div>
             </div>
 
             <div class="info-content">
+
                 <div class="case-meta">
                     <span class="difficulty-badge {{ difficulty|lower }}">{{ difficulty|title }}</span>
                     <span class="category">Category: {{ category|title }}</span>
@@ -35,11 +142,95 @@
                     {{ description }}
                 </div>
 
-                {% if body %}
-                <div class="case-content">
-                    {{ body | safe }}
+                <div class="interaction-box">
+                    <h4 style="margin-top: 0; margin-bottom: 15px; display:flex; align-items:center; justify-content:space-between;">
+                        <span><i class="fas fa-flask"></i> Test Your Payload</span>
+                        <span style="font-size: 0.7em; font-weight: normal; color: #aaa; border: 1px solid #444; padding: 2px 8px; border-radius: 4px;">Method: GET</span>
+                    </h4>
+
+                    <div class="url-simulator">
+                        <i class="fas fa-globe" style="margin-right: 10px; color: #444;"></i>
+                        <span class="url-static">https://xsstrange.com/case/</span>
+                        <span class="url-param-key">?param=</span>
+                        <span id="live-param-view" class="url-param-val">{{ request.args.get('param', '') }}</span>
+                        <span class="blinking-cursor"></span>
+                    </div>
+
+                    <form method="GET" action="" class="interaction-form">
+                        <input type="text" 
+                               name="param" 
+                               class="payload-input"
+                               id="payloadInput"
+                               placeholder="Type here to modify URL parameter..." 
+                               value="{{ request.args.get('param', '') }}"
+                               autocomplete="off"
+                               oninput="document.getElementById('live-param-view').innerText = this.value">
+                        
+                        <button type="submit" class="inject-btn">
+                            Inject <i class="fas fa-bolt"></i>
+                        </button>
+                    </form>
+                    
+                    <div class="edu-note">
+                        <i class="fas fa-info-circle" style="color: #007bff; margin-right: 5px;"></i> 
+                        <strong>How it works:</strong> The text you type above is appended to the URL as a GET parameter (<code>?param=...</code>). The server then takes this parameter and inserts it into the CSS code below.
+                    </div>
                 </div>
-                {% endif %}
+
+                <div class="case-content">
+
+                    {% if type == "css" %}
+                        <h3>CSS Injection (Tag Content)</h3>
+                        <p>The input below is injected directly into a <code>&lt;style&gt;</code> block.</p>
+
+                        <style>
+                            /* Default style if param is empty */
+                            #cssTarget { padding: 10px; border: 1px dashed #555; }
+                            
+                            /* INJECTION POINT START */
+                            {{ request.args.get('param', '#cssTarget { background: #2a2a2a; }') | safe }}
+                            /* INJECTION POINT END */
+                        </style>
+
+                        <div id="cssTarget">
+                            This div is the target of the CSS injection. <br>
+                            <em>Try to break out of the style tag!</em>
+                        </div>
+
+                    {% elif type == "css-value" %}
+                        <h3>CSS Injection (Property Value)</h3>
+                        <p>The input is injected into the <code>color</code> property.</p>
+
+                        <style>
+                        #cssValueTarget {
+                            font-size: 1.2em;
+                            font-weight: bold;
+                            /* INJECTION POINT */
+                            color: {{ request.args.get('param', '#00ff9d') | safe }};
+                        }
+                        </style>
+
+                        <p id="cssValueTarget">This text reflects the injected CSS value.</p>
+
+                    {% elif type == "css-font" %}
+                        <h3>CSS Injection (Font Name)</h3>
+                        <p>The input is injected into the <code>font-family</code> property.</p>
+
+                        <style>
+                        #cssFontTarget {
+                            font-size: 1.5em;
+                            /* INJECTION POINT */
+                            font-family: '{{ request.args.get('param', 'Courier New') | safe }}';
+                        }
+                        </style>
+
+                        <p id="cssFontTarget">This text will use the injected font-family.</p>
+
+                    {% elif body %}
+                        {{ body | safe }}
+                    {% endif %}
+
+                </div>
 
                 <div class="info-grid">
                     <div class="info-card">
@@ -54,12 +245,10 @@
 
                 {% if hints and hints|length > 0 %}
                 <div class="hints-section" id="hintsSection">
-                    <div class="hints-header" 
-                         onclick="toggleHints()" 
-                         role="button" 
+                    <div class="hints-header"
+                         onclick="toggleHints()"
+                         role="button"
                          tabindex="0"
-                         aria-expanded="false"
-                         aria-controls="hintsContent"
                          onkeypress="handleKeyPress(event)">
                         <div class="hints-title">
                             <i class="fas fa-lightbulb hints-icon"></i>
@@ -75,24 +264,20 @@
                     <div class="hints-content" id="hintsContent">
                         <div class="hints-warning">
                             <i class="fas fa-exclamation-triangle"></i>
-                            <p>
-                                <strong>Spoiler Alert!</strong> Try to solve the challenge yourself first. 
-                                Use hints only when you're stuck.
-                            </p>
+                            <p><strong>Spoiler Alert!</strong> Hints may reveal the solution.</p>
                         </div>
 
                         <ul class="hints-list">
                             {% for hint in hints %}
                             <li class="hint-item">
-                                <div class="hint-text">
-                                    <span class="hint-number">{{ loop.index }}</span>
-                                    <span>{{ hint }}</span>
-                                </div>
+                                <span class="hint-number">{{ loop.index }}</span>
+                                <span>{{ hint }}</span>
                             </li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
+
                 {% else %}
                 <div class="hints-section">
                     <div class="hints-header">
@@ -103,92 +288,50 @@
                     </div>
                     <div class="hints-empty">
                         <i class="fas fa-lightbulb"></i>
-                        <p>No hints available for this challenge. Good luck!</p>
+                        <p>No hints available for this challenge.</p>
                     </div>
                 </div>
                 {% endif %}
+
             </div>
         </div>
+
         <footer class="template-footer">
             <section class="footer-grid">
                 <article>
-                    <h3><i class="fas fa-shield-alt" aria-hidden="true"></i> Security Testing</h3>
-                    <p>Learn web security through hands-on practice and real-world scenarios.</p>
+                    <h3><i class="fas fa-shield-alt"></i> Security Testing</h3>
+                    <p>Learn web security through hands-on practice.</p>
                 </article>
-
                 <article>
-                    <h3><i class="fas fa-code" aria-hidden="true"></i> Open Source</h3>
-                    <p>Contribute, fork, and help improve the XSStrange platform on GitHub.</p>
+                    <h3><i class="fas fa-code"></i> Open Source</h3>
+                    <p>Contribute to XSStrange on GitHub.</p>
                 </article>
-
                 <article>
-                    <h3><i class="fas fa-users" aria-hidden="true"></i> Community</h3>
-                    <p>Join our growing security testing community and share your findings.</p>
+                    <h3><i class="fas fa-users"></i> Community</h3>
+                    <p>Join our growing community.</p>
                 </article>
             </section>
 
             <div class="footer-bottom">
-                <p>&copy; 2024 <strong>XSStrange</strong> — A Gallipoli Community Project</p>
+                <p>&copy; 2024 <strong>XSStrange</strong></p>
             </div>
         </footer>
+
     </div>
- 
 
     <script>
         'use strict';
-        
-        const html = document.documentElement;
-        html.setAttribute('data-theme', 'dark');
 
         function toggleHints() {
-            const section = document.getElementById('hintsSection');
-            const header = section.querySelector('.hints-header');
-            const isExpanded = section.classList.contains('expanded');
-            
-            section.classList.toggle('expanded');
-            header.setAttribute('aria-expanded', !isExpanded);
-            
-            const toggleText = section.querySelector('.toggle-indicator span');
-            if (toggleText) {
-                toggleText.textContent = isExpanded ? 'Click to reveal hints' : 'Click to hide hints';
-            }
-            
-            const caseId = '{{ title|replace(" ", "-")|lower }}';
-            localStorage.setItem(`hints-${caseId}`, !isExpanded);
-            
-            if (!isExpanded) {
-                setTimeout(() => {
-                    section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
-            }
+            document.getElementById('hintsSection').classList.toggle('expanded');
         }
 
         function handleKeyPress(event) {
             if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
                 toggleHints();
             }
         }
-        document.addEventListener('DOMContentLoaded', function() {
-            const caseId = '{{ title|replace(" ", "-")|lower }}';
-            const savedState = localStorage.getItem(`hints-${caseId}`);
-        });
-
-        const hintsSection = document.getElementById('hintsSection');
-        if (hintsSection) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-            
-            observer.observe(hintsSection);
-        }
     </script>
+
 </body>
 </html>

@@ -1,0 +1,23 @@
+{
+    "title": "Parameter - CSS Font Name",
+    "description": "The parameter is echoed as a font value. Font name parsers often fail to sanitize correctly.",
+    "category": "xss",
+    "difficulty": "Medium",
+    "risk": "Medium",
+    "status": "Active",
+    "type": "css-font",
+
+    "body": "<h3>CSS Injection (Font Name)</h3>\n<p>The input is placed inside the font-family property.</p>\n<p>Param: <code>?param=</code></p>\n<style>\n#fontTarget {\n    font-family: {{ request.args.get('param', 'Arial') | safe }};\n}\n</style>\n<p id=\"fontTarget\">Inspect this element's font.</p>",
+
+    "objectives": [
+        "Inject a malicious font name or break the property.",
+        "Observe how quotes interact with the injection.",
+        "Attempt to inject a background-image via 'expression' (IE legacy) or break out."
+    ],
+
+    "hints": [
+        "The context is: font-family: [INPUT];",
+        "Try adding quotes: ' Courier New'; font-size: 50px",
+        "Sometimes sanitizers allow quotes in font names, which aids in breaking context."
+    ]
+}
