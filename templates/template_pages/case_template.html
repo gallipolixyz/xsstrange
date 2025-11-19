@@ -142,6 +142,7 @@
                     {{ description }}
                 </div>
 
+                {% if type and (type|lower).startswith('css') %}
                 <div class="interaction-box">
                     <h4 style="margin-top: 0; margin-bottom: 15px; display:flex; align-items:center; justify-content:space-between;">
                         <span><i class="fas fa-flask"></i> Test Your Payload</span>
@@ -151,18 +152,18 @@
                     <div class="url-simulator">
                         <i class="fas fa-globe" style="margin-right: 10px; color: #444;"></i>
                         <span class="url-static">https://xsstrange.com/case/</span>
-                        <span class="url-param-key">?param=</span>
-                        <span id="live-param-view" class="url-param-val">{{ request.args.get('param', '') }}</span>
+                        <span class="url-param-key">?q=</span>
+                        <span id="live-param-view" class="url-param-val">{{ request.args.get('q', '') }}</span>
                         <span class="blinking-cursor"></span>
                     </div>
 
                     <form method="GET" action="" class="interaction-form">
                         <input type="text" 
-                               name="param" 
+                               name="q" 
                                class="payload-input"
                                id="payloadInput"
                                placeholder="Type here to modify URL parameter..." 
-                               value="{{ request.args.get('param', '') }}"
+                               value="{{ request.args.get('q', '') }}"
                                autocomplete="off"
                                oninput="document.getElementById('live-param-view').innerText = this.value">
                         
@@ -173,9 +174,10 @@
                     
                     <div class="edu-note">
                         <i class="fas fa-info-circle" style="color: #007bff; margin-right: 5px;"></i> 
-                        <strong>How it works:</strong> The text you type above is appended to the URL as a GET parameter (<code>?param=...</code>). The server then takes this parameter and inserts it into the CSS code below.
+                        <strong>How it works:</strong> The text you type above is appended to the URL as a GET parameter (<code>?q=...</code>). The server then takes this parameter and inserts it into the CSS code below.
                     </div>
                 </div>
+                {% endif %}
 
                 <div class="case-content">
 
@@ -184,11 +186,11 @@
                         <p>The input below is injected directly into a <code>&lt;style&gt;</code> block.</p>
 
                         <style>
-                            /* Default style if param is empty */
+                            /* Default style if q is empty */
                             #cssTarget { padding: 10px; border: 1px dashed #555; }
                             
                             /* INJECTION POINT START */
-                            {{ request.args.get('param', '#cssTarget { background: #2a2a2a; }') | safe }}
+                            {{ request.args.get('q', '#cssTarget { background: #2a2a2a; }') | safe }}
                             /* INJECTION POINT END */
                         </style>
 
@@ -206,7 +208,7 @@
                             font-size: 1.2em;
                             font-weight: bold;
                             /* INJECTION POINT */
-                            color: {{ request.args.get('param', '#00ff9d') | safe }};
+                            color: {{ request.args.get('q', '#00ff9d') | safe }};
                         }
                         </style>
 
@@ -220,7 +222,7 @@
                         #cssFontTarget {
                             font-size: 1.5em;
                             /* INJECTION POINT */
-                            font-family: '{{ request.args.get('param', 'Courier New') | safe }}';
+                            font-family: '{{ request.args.get('q', 'Courier New') | safe }}';
                         }
                         </style>
 

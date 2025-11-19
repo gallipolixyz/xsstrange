@@ -6,7 +6,7 @@
     "Exploit the vulnerability to execute JavaScript."
   ],
   "hints": [
-    "Try injecting a <script> tag in the location search parameter.",
+    "Try injecting a <script> tag in the 'q' parameter.",
     "Check how the location search is rendered in the DOM."
   ],
   "difficulty": "medium",
@@ -14,5 +14,5 @@
   "risk": "medium",
   "status": "active",
   "type": "html",
-  "body": "<div id='location'></div><script>const params = new URLSearchParams(window.location.search);document.getElementById('location').innerHTML = params.get('location');</script>"
+  "body": "<div id='location'></div><script>const params = new URLSearchParams(window.location.search);document.getElementById('location').innerHTML = params.get('q');</script>"
 }

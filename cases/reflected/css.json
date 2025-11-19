@@ -7,7 +7,7 @@
     "status": "Active",
     "type": "css",
 
-    "body": "<h3>CSS Injection (Full Tag)</h3>\n<p>The input becomes the entire content of the style tag. Try executing XSS.</p>\n<p>Param: <code>?param=</code></p>\n\n<style>\n{{ request.args.get('param', 'body { background-color: #f9f9f9; }') | safe }}\n</style>\n<div id=\"target\">Target Element</div>",
+    "body": "<h3>CSS Injection (Full Tag)</h3>\n<p>The input becomes the entire content of the style tag. Try executing XSS.</p>\n<p>Param: <code>?q=</code></p>\n\n<style>\n{{ request.args.get('q', 'body { background-color: #f9f9f9; }') | safe }}\n</style>\n<div id=\"target\">Target Element</div>",
 
     "objectives": [
         "Break out of the <style> tag using </style>.",

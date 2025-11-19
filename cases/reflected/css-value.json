@@ -7,7 +7,7 @@
     "status": "Active",
     "type": "css-value",
 
-    "body": "<h3>CSS Injection (Property Value)</h3>\n<p>The input is placed inside a color property.</p>\n<p>Param: <code>?param=</code></p>\n<style>\n#colorTarget {\n    color: {{ request.args.get('param', 'blue') | safe }};\n}\n</style>\n<p id=\"colorTarget\">This text changes color based on input.</p>",
+    "body": "<h3>CSS Injection (Property Value)</h3>\n<p>The input is placed inside a color property.</p>\n<p>Param: <code>?q=</code></p>\n<style>\n#colorTarget {\n    color: {{ request.args.get('q', 'blue') | safe }};\n}\n</style>\n<p id=\"colorTarget\">This text changes color based on input.</p>",
 
     "objectives": [
         "Change the color to something else (e.g., red).",

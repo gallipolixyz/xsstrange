@@ -15,5 +15,5 @@
     "risk": "medium",
     "status": "active",
     "type": "html",
-    "body": "<div id='note'></div><script>document.getElementById('note').innerHTML = localStorage.getItem('note');</script>"
+    "body": "<div id='note'></div><script>document.getElementById('note').innerHTML = localStorage.getItem('q');</script>"
 }
