@@ -1,7 +1,7 @@
 {
     "title": "Parameter - CSS (Tag Content)",
     "description": "The parameter is echoed as the only content of a STYLE tag positioned into the HEAD.",
-    "category": "xss",
+    "category": "reflected",
     "difficulty": "High",
     "risk": "High",
     "status": "Active",

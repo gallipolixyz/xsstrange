@@ -1,7 +1,7 @@
 {
     "title": "Parameter - CSS Value (Color)",
     "description": "The parameter is echoed as a color value in a STYLE tag positioned into the HEAD.",
-    "category": "xss",
+    "category": "reflected",
     "difficulty": "Medium",
     "risk": "Medium",
     "status": "Active",
