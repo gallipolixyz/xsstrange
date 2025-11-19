@@ -1,0 +1,23 @@
+{
+    "title": "Parameter - CSS Value (Color)",
+    "description": "The parameter is echoed as a color value in a STYLE tag positioned into the HEAD.",
+    "category": "xss",
+    "difficulty": "Medium",
+    "risk": "Medium",
+    "status": "Active",
+    "type": "css-value",
+
+    "body": "<h3>CSS Injection (Property Value)</h3>\n<p>The input is placed inside a color property.</p>\n<p>Param: <code>?param=</code></p>\n<style>\n#colorTarget {\n    color: {{ request.args.get('param', 'blue') | safe }};\n}\n</style>\n<p id=\"colorTarget\">This text changes color based on input.</p>",
+
+    "objectives": [
+        "Change the color to something else (e.g., red).",
+        "Break the syntax to inject a new property (e.g., font-size).",
+        "Try to break out of the declaration block using '}'."
+    ],
+
+    "hints": [
+        "The context is: color: [INPUT];",
+        "Try inputting: red; background: yellow",
+        "To execute XSS, you need to break out of the curly braces and the style tag."
+    ]
+}

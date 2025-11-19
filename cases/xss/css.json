@@ -1,0 +1,23 @@
+{
+    "title": "Parameter - CSS (Tag Content)",
+    "description": "The parameter is echoed as the only content of a STYLE tag positioned into the HEAD.",
+    "category": "xss",
+    "difficulty": "High",
+    "risk": "High",
+    "status": "Active",
+    "type": "css",
+
+    "body": "<h3>CSS Injection (Full Tag)</h3>\n<p>The input becomes the entire content of the style tag. Try executing XSS.</p>\n<p>Param: <code>?param=</code></p>\n\n<style>\n{{ request.args.get('param', 'body { background-color: #f9f9f9; }') | safe }}\n</style>\n<div id=\"target\">Target Element</div>",
+
+    "objectives": [
+        "Break out of the <style> tag using </style>.",
+        "Inject a <script> tag to execute alert(1).",
+        "Change the page background color via CSS rules."
+    ],
+
+    "hints": [
+        "Since you control the whole tag content, try closing it first.",
+        "Payload example: </style><script>alert(1)</script><style>",
+        "Valid CSS is not required if you break the tag."
+    ]
+}

@@ -41,5 +41,31 @@
       ],
       "resources": []
     }
+  },
+  {
+    "category": "xss",
+    "tag": "Medium",
+    "title": "XSS Injection Cases",
+    "description": "CSS-based XSS vulnerabilities.",
+    "status": "Active",
+    "details": {
+      "long_description": "CSS and style-tag based XSS vulnerabilities where attacker-controlled input is inserted into CSS contexts.",
+      "impact": [
+        "UI defacement",
+        "Phishing",
+        "Arbitrary JavaScript execution via CSS escape techniques"
+      ],
+      "vectors": [
+        "STYLE tag injection",
+        "CSS value injection",
+        "Font name injection"
+      ],
+      "test_cases": [
+        "css",
+        "css-value",
+        "css-font"
+      ],
+      "resources": []
+    }
   }
 ]
