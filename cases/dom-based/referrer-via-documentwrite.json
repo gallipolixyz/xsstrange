@@ -1,0 +1,22 @@
+{
+  "title": "Referrer via document.write",
+  "description": "A DOM-based XSS vulnerability where attacker-controlled data from the Referrer header is written into the page using document.write().",
+  "objectives": [
+    "Understand how the Referrer header becomes attacker-controlled.",
+    "Identify the unsafe sink: document.write().",
+    "Exploit the vulnerability using an iframe to spoof the Referrer."
+  ],
+  "hints": [
+    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based",
+    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-innerhtml-sink",
+    "Visit: https://www.geekboy.ninja/blog/tag/referer-xss/",
+    "Visit: https://www.gremwell.com/exploiting_xss_in_referer_header ",
+    "Try-> ?config=<script>alert(Referrer XSS via document.write)</script>"
+    ],
+  "difficulty": "medium",
+  "category": "referrer-xss",
+  "risk": "high",
+  "type": "html",
+  "status": "active",
+  "body": "<script>const ref = document.referrer; try { const url = new URL(ref); const config = url.searchParams.get('config'); if (config) { document.write(config); } } catch(e){ console.log('Referrer parse error:', e); }</script>"
+}

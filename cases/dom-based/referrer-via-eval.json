@@ -1,5 +1,5 @@
 {
-  "title": "Referrer XSS via eval",
+  "title": "Referrer via eval",
   "description": "This test demonstrates a DOM-based XSS vulnerability where the application extracts parameters from document.referrer and passes attacker-controlled data directly into eval(). No document.write() is used, making the vulnerability harder to spot in code reviews.",
   "objectives": [
     "Understand how the Referrer header becomes attacker-controlled.",
@@ -8,10 +8,11 @@
     "Exploit the vulnerability using an iframe to spoof the Referrer."
   ],
   "hints": [
-      "Search on Google what is XSS via Referer and what is eval.",
-        "Visit: https://www.geekboy.ninja/blog/tag/referer-xss/",
-        "Visit: https://www.gremwell.com/exploiting_xss_in_referer_header ",
-        "Use this payload -> ?config=alert('XSS via referrer')"
+    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based",
+    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-innerhtml-sink",
+    "Visit: https://www.geekboy.ninja/blog/tag/referer-xss/",
+    "Visit: https://www.gremwell.com/exploiting_xss_in_referer_header ",
+    "Try-> ?config=alert('Referrer XSS via eval')"
     ],
   "difficulty": "medium",
   "category": "referrer-xss",

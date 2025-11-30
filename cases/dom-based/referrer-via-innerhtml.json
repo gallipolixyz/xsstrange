@@ -1,0 +1,23 @@
+{
+  "title": "Referrer via innerHTML",
+  "description": "The page reads the visitor’s originating URL (document.referrer), extracts the 'config' query parameter, and injects it into the page using innerHTML without sanitization. Note that browsers typically do not execute <script> tags inserted via innerHTML, but event-carrying elements (e.g. <img src=x onerror=...>) will execute when added this way and can be used to exploit the issue. When testing, consider referrer-policy, protocol differences (HTTP vs HTTPS), and URL encoding (use encodeURIComponent) because they can affect whether the referrer string includes the query parameter."
+  ,
+  "objectives": [
+    "Understand how the referrer becomes attacker-controlled.",
+    "Identify unsafe sink: innerHTML.",
+    "Exploit the vulnerability using an attacker-controlled referrer."
+  ],
+  "hints": [
+    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based",
+    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-innerhtml-sink",
+    "Visit: https://www.geekboy.ninja/blog/tag/referer-xss/",
+    "Visit: https://www.gremwell.com/exploiting_xss_in_referer_header ",
+    "Try-> ?config=<img src=1 onerror=alert(1)>"
+  ],
+  "difficulty": "medium",
+  "category": "referrer-xss",
+  "risk": "medium",
+  "type": "html",
+  "status": "active",
+  "body":  "<div id='output'></div><script>const ref=document.referrer;try{const url=new URL(ref);const config=url.searchParams.get('config');if(config){document.getElementById('output').innerHTML=config;}}catch(e){console.log(e);}</script>"
+}
