@@ -142,7 +142,8 @@
                     {{ description }}
                 </div>
 
-                {% if type and (type|lower).startswith('css') %}
+                {# NOTE: Interaction box is active for CSS and JS types #}
+                {% if type and (type|lower).startswith('css') or (type|lower).startswith('js') %}
                 <div class="interaction-box">
                     <h4 style="margin-top: 0; margin-bottom: 15px; display:flex; align-items:center; justify-content:space-between;">
                         <span><i class="fas fa-flask"></i> Test Your Payload</span>
@@ -174,7 +175,7 @@
                     
                     <div class="edu-note">
                         <i class="fas fa-info-circle" style="color: #007bff; margin-right: 5px;"></i> 
-                        <strong>How it works:</strong> The text you type above is appended to the URL as a GET parameter (<code>?q=...</code>). The server then takes this parameter and inserts it into the CSS code below.
+                        <strong>How it works:</strong> The text you type above is appended to the URL as a GET parameter (<code>?q=...</code>). The server then takes this parameter and inserts it into the relevant code block below.
                     </div>
                 </div>
                 {% endif %}
@@ -228,6 +229,46 @@
 
                         <p id="cssFontTarget">This text will use the injected font-family.</p>
 
+                    {% elif type == "js-unquoted" %}
+                        <h3>JavaScript Injection (Unquoted Assignment)</h3>
+                        <p>The input is placed into a script block as an unquoted variable assignment. **Check your browser's console for the result.**</p>
+
+                        <script>
+                            var username = 'Guest';
+                            var userID = 101;
+
+                            var data = {{ request.args.get('q', 'default_value') | safe }};
+
+                            console.log('Data (Type:', typeof data, '):', data);
+                            document.write('<p style=\"color: #00ff9d;\">Script executed. Check console!</p>');
+                        </script>
+                        <p>Try using a payload like <code>123; alert(1)</code> to break out and execute a new command.</p>
+
+                    {% elif type == "js-eval" %}
+                        <h3>JavaScript Injection (Eval Function)</h3>
+                        <p>The input is passed directly into the <code>eval()</code> function. **This is a highly critical vulnerability.**</p>
+
+                        <script>
+                            // INJECTION POINT: eval(data);
+                            var data = '{{ request.args.get('q', '/* default */') | safe }}';
+                            eval(data);
+                        </script>
+                        <p>Since the input is executed as raw JavaScript, a simple payload like <code>alert(document.domain)</code> should work. Check for visual confirmation.</p>
+
+                    {% elif type == "js-quoted" %}
+                        <h3>JavaScript Injection (Quoted String)</h3>
+                        <p>The input is placed into a script block as a **single-quoted string** assignment. You must **close the string** to inject code.</p>
+
+                        <script>
+                            var version = '1.2.3';
+
+                            var message = '{{ request.args.get('q', 'Update available') | safe }}';
+
+                            console.log('App Message:', message);
+                            document.write('<p style=\"color: #00ff9d;\">Message set. Check console!</p>');
+                        </script>
+                        <p>Try to use a payload like <code>'; alert(1)//</code> to escape the string context and run arbitrary code.</p>
+                        
                     {% elif body %}
                         {{ body | safe }}
                     {% endif %}
@@ -332,6 +373,16 @@
             if (event.key === 'Enter' || event.key === ' ') {
                 toggleHints();
             }
+        }
+        
+        const payloadInput = document.getElementById('payloadInput');
+        if (payloadInput) {
+            payloadInput.oninput = function() {
+                const liveView = document.getElementById('live-param-view');
+                if (liveView) {
+                    liveView.innerText = this.value;
+                }
+            };
         }
     </script>
 
