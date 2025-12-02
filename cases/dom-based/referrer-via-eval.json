@@ -8,16 +8,14 @@
     "Exploit the vulnerability using an iframe to spoof the Referrer."
   ],
   "hints": [
-    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based",
-    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-innerhtml-sink",
-    "Visit: https://www.geekboy.ninja/blog/tag/referer-xss/",
-    "Visit: https://www.gremwell.com/exploiting_xss_in_referer_header ",
-    "Try-> ?config=alert('Referrer XSS via eval')"
+    "To get a non-empty referrer, first visit a payload URL and then navigate to this case in the same tab; opening this page directly leaves document.referrer empty.",
+    "Example step 1: Go to http://example-page.com/cases/reflected/php-search-form/?q=alert('referrer')",
+    "Example step 2: In the console run window.location='http://your-xsstrange.app/cases/dom-based/referrer-via-eval/' or click a link; the referrer string gets decoded and executed via eval, triggering XSS."
     ],
   "difficulty": "medium",
   "category": "referrer-xss",
-  "risk": "high",
+  "risk": "low",
   "type": "html",
   "status": "active",
-  "body": "<script> const ref = document.referrer; try { const url = new URL(ref); const config = url.searchParams.get('config'); if (config) {eval(config); } } catch (err) {console.warn('Referrer parsing failed:', err);}</script>"
+  "body": "<script> const ref=document.referrer; try { if(ref){ const url=new URL(ref); for(const val of url.searchParams.values()){ const decoded=decodeURIComponent(val); eval(decoded); } } } catch(err){ console.warn('Referrer parsing failed:', err); }</script>"
 }

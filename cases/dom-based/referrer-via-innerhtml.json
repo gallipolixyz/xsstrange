@@ -1,6 +1,6 @@
 {
   "title": "Referrer via innerHTML",
-  "description": "The page reads the visitor’s originating URL (document.referrer), extracts the 'config' query parameter, and injects it into the page using innerHTML without sanitization. Note that browsers typically do not execute <script> tags inserted via innerHTML, but event-carrying elements (e.g. <img src=x onerror=...>) will execute when added this way and can be used to exploit the issue. When testing, consider referrer-policy, protocol differences (HTTP vs HTTPS), and URL encoding (use encodeURIComponent) because they can affect whether the referrer string includes the query parameter."
+  "description": "The page reads the visitor's originating URL (document.referrer), extracts the 'Referer' header parameter, and injects it into the page using innerHTML without sanitization. Note that browsers typically do not execute <script> tags inserted via innerHTML, but event-carrying elements (e.g. <img src=x onerror=...>) will execute when added this way and can be used to exploit the issue. When testing, consider referrer-policy, protocol differences (HTTP vs HTTPS), and URL encoding (use encodeURIComponent) because they can affect whether the referrer string includes the query parameter."
   ,
   "objectives": [
     "Understand how the referrer becomes attacker-controlled.",
@@ -8,16 +8,14 @@
     "Exploit the vulnerability using an attacker-controlled referrer."
   ],
   "hints": [
-    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based",
-    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-innerhtml-sink",
-    "Visit: https://www.geekboy.ninja/blog/tag/referer-xss/",
-    "Visit: https://www.gremwell.com/exploiting_xss_in_referer_header ",
-    "Try-> ?config=<img src=1 onerror=alert(1)>"
+    "To get a non-empty referrer, first visit a payload URL and then navigate to this case in the same tab; opening this page directly leaves document.referrer empty.",
+    "Example step 1: Go to http://example-page.com/cases/reflected/php-search-form/?q=%3Cimg%20src%3Dx%20onerror%3Dalert('referrer')%3E (payload is URL-encoded).",
+    "Example step 2: In the console run window.location='http://your-xsstrange.app/cases/dom-based/referrer-via-innerhtml/' or click a link; the referrer string gets decoded and injected via innerHTML, so use an event-based payload (e.g., <img onerror=...>) to trigger XSS."
   ],
   "difficulty": "medium",
   "category": "referrer-xss",
-  "risk": "medium",
+  "risk": "low",
   "type": "html",
   "status": "active",
-  "body":  "<div id='output'></div><script>const ref=document.referrer;try{const url=new URL(ref);const config=url.searchParams.get('config');if(config){document.getElementById('output').innerHTML=config;}}catch(e){console.log(e);}</script>"
+  "body":  "<div id='output'></div><script>const ref=document.referrer;try{if(ref){const decodedRef=decodeURIComponent(ref);document.getElementById('output').innerHTML=decodedRef;}}catch(e){console.log(e);}</script>"
 }

@@ -7,16 +7,14 @@
     "Exploit the vulnerability using an iframe to spoof the Referrer."
   ],
   "hints": [
-    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based",
-    "Visit: https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-innerhtml-sink",
-    "Visit: https://www.geekboy.ninja/blog/tag/referer-xss/",
-    "Visit: https://www.gremwell.com/exploiting_xss_in_referer_header ",
-    "Try-> ?config=<script>alert(Referrer XSS via document.write)</script>"
+    "To get a non-empty referrer, first visit a payload URL and then navigate to this case in the same tab; opening this page directly leaves document.referrer empty.",
+    "Example step 1: Go to http://example-page.com/cases/reflected/php-search-form/?q=%3Cimg%20src%3Dx%20onerror%3Dalert('referrer')%3E (payload is URL-encoded).",
+    "Example step 2: In the console run window.location='http://your-xsstrange.app/cases/dom-based/referrer-via-documentwrite/' or click a link; the referrer query gets decoded and echoed via document.write, triggering XSS."
     ],
   "difficulty": "medium",
   "category": "referrer-xss",
-  "risk": "high",
+  "risk": "low",
   "type": "html",
   "status": "active",
-  "body": "<script>const ref = document.referrer; try { const url = new URL(ref); const config = url.searchParams.get('config'); if (config) { document.write(config); } } catch(e){ console.log('Referrer parse error:', e); }</script>"
+  "body": "<script>const ref = document.referrer; try { if (ref) { const decodedRef = decodeURIComponent(ref); document.write(decodedRef); } } catch(e){ console.log('Referrer parse error:', e); }</script>"
 }
