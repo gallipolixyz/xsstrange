@@ -1,0 +1,37 @@
+{
+
+"title": "Cookie-document.write",
+
+"description": "Demonstrates a classic DOM-based XSS where unsanitized cookie data is written directly to the document stream using document.write().",
+
+"objectives": [
+
+"Observe how document.write allows synchronous script execution.",
+
+"Inject a standard <script>alert(1)</script> payload via URL parameter."
+
+],
+
+"hints": [
+
+"Check how the 'input' cookie is set from the URL.",
+
+"The sink is document.write, which evaluates scripts immediately.",
+
+"If the XSS persists on refresh, try clearing your cookies."
+
+],
+
+"difficulty": "low",
+
+"category": "DOM-Based XSS",
+
+"risk": "critical",
+
+"status": "active",
+
+"type": "html",
+
+"body": "<h3>Cookie -> document.write() sink</h3><p>Use <b>?c=YOUR_PAYLOAD</b> to set the cookie.</p><div id='result'></div><script>const p = new URLSearchParams(location.search);if (p.has('c')) { document.cookie = 'input=' + p.get('c') + '; path=/';}const m = document.cookie.match(/(^| )input=([^;]+)/);if (m) { const payload = decodeURIComponent(m[2]); document.write('<b>Stored Cookie Value:</b> ' + payload); document.cookie = 'input=; Max-Age=0; path=/';}</script>"
+
+}
