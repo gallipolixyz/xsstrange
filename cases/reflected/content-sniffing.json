@@ -1,0 +1,17 @@
+{
+  "title": "Content Sniffing XSS",
+  "description": "This scenario demonstrates an XSS triggered by browsers interpreting JSON as HTML due to MIME sniffing.",
+  "objectives": [
+    "Trigger XSS via content sniffing.",
+    "Escape from a JSON string and execute script."
+  ],
+  "hints": [
+    "Try breaking out of the JSON string.",
+    "Experiment with </script><script> payloads."
+  ],
+  "difficulty": "medium",
+  "category": "content-sniffing",
+  "risk": "medium",
+  "status": "active",
+  "body": "<div style='font-family: Arial; padding:20px;'><h2 style='color:#7fffd4;'>Content Sniffing XSS</h2><p>This scenario simulates a JSON response that the browser may incorrectly interpret as HTML due to MIME sniffing.</p><div style='margin-top:20px; padding:15px; background:#111; color:#eee; border:1px solid #444; border-radius:8px;'><strong>JSON Output (vulnerable to sniffing):</strong><pre id='json-box' style='margin-top:10px; background:#222; padding:10px; border-radius:6px; color:#0f0;'></pre></div><div style='margin-top:20px; padding:10px; border:1px dashed #555; background:#181818; color:#ddd;'>If your payload successfully breaks out, it will execute immediately.</div></div><script>const p=new URLSearchParams(window.location.search);const q=p.get('q')||\"\";const jsonString=`{\\\"data\\\":\\\"${q}\\\"}`;document.getElementById(\"json-box\").textContent=jsonString;document.write(jsonString);</script>"
+}
