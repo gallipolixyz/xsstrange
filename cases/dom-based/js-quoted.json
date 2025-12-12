@@ -1,0 +1,24 @@
+{
+    "title": "Javascript Quoted String",
+    "description": "Assigns the parameter value to an quoted js assignment, i.e. var foo = \"%q\";",
+    "category": "dom-based",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "js-quoted",
+
+    "body": "<h3>JavaScript Injection (Quoted String)</h3>\n<p>The user input is placed inside a `<script>` block as a quoted variable assignment.</p>\n<p>Param: <code>?q=</code></p>\n\n<script>\n    var version = '1.2.3';\n\n    // INJECTION POINT:\n    var message = '{{ request.args.get('q', 'Update available') | safe }}';\n\n    console.log('App Message:', message);\n</script>\n\n<p>Check the browser's console to observe the result. You must close the quote!</p>",
+
+    "objectives": [
+        "Close the existing string quote (e.g., using `'` or `\"`).",
+        "Escape the assignment line using a semicolon (`;`).",
+        "Inject a command to execute arbitrary JavaScript (e.g., `alert(1)`).",
+        "Ensure the trailing code (the final quote and semicolon) is handled without error."
+    ],
+
+    "hints": [
+        "The context is: `var message = '[INPUT]';`",
+        "Try using this structure: [Closing Quote] + [Delimiter] + [Code] + [Comment]",
+        "A working payload might look like: `'; alert(1)//`"
+    ]
+}
