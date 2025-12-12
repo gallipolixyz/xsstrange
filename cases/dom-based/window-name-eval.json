@@ -1,0 +1,19 @@
+{
+  "title": "window.name via eval",
+  "description": "Demonstrates a DOM-based XSS where attacker-controlled data from window.name is executed with eval().",
+  "objectives": [
+    "See how window.name can be populated by a previous navigation.",
+    "Identify eval() as the unsafe sink.",
+    "Execute arbitrary JavaScript by controlling window.name."
+  ],
+  "hints": [
+    "Set window.name in the DevTools console, e.g., window.name=\"alert(document.domain)\".",
+    "Reload or revisit the page so the stored window.name value is executed."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<script>const params=new URLSearchParams(location.search);if(params.has('q')){window.name=params.get('q');}if(window.name){eval(window.name);}</script>"
+}
