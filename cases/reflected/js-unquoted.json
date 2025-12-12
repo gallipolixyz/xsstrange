@@ -1,0 +1,23 @@
+{
+    "title": "PHP JavaScript Unquoted Assignment",
+    "description": "Reflects the q parameter from PHP into an unquoted JavaScript assignment.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : '101';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>PHP to JavaScript Unquoted Assignment</h3>\n    <p>The <code>q</code> parameter is injected directly into an unquoted JavaScript variable.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <script>\n        var username = 'Guest';\n        var userID = 101;\n\n        // INJECTION POINT: terminate the statement to gain execution\n        var data = <?php echo $input; ?>;\n\n        console.log('Data loaded for user:', data);\n    </script>\n\n    <p>End the assignment with a semicolon and add your own JavaScript to trigger code execution.</p>\n</body>\n</html>",
+
+    "objectives": [
+        "Break out of the unquoted assignment with a semicolon.",
+        "Inject JavaScript such as <code>alert(1)</code> and observe its execution.",
+        "Ensure the page remains syntactically valid after your payload."
+    ],
+
+    "hints": [
+        "The context is: <code>var data = [INPUT];</code> built via PHP.",
+        "End the line, then add your payload.",
+        "Try: <code>100; alert(1)</code>"
+    ]
+}
