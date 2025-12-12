@@ -24,7 +24,10 @@
         "referrer-via-documentWrite",
         "window-name-eval",
         "window-name-innerhtml",
-        "window-name-documentwrite"
+        "window-name-documentwrite",
+        "js-eval",
+        "js-quoted",
+        "js-unquoted"
       ],
       "resources": []
     }
