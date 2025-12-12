@@ -1,0 +1,19 @@
+{
+  "title": "window.name via document.write",
+  "description": "Demonstrates a DOM-based XSS where window.name is written directly into the document with document.write().",
+  "objectives": [
+    "Recognize that window.name can be attacker-controlled across navigations.",
+    "Identify document.write() as the unsafe sink.",
+    "Exploit control of window.name to run arbitrary script."
+  ],
+  "hints": [
+    "Set window.name to HTML or script in DevTools or a prior page, then load this case.",
+    "You can also pass ?q=<payload> to populate window.name before document.write runs."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<script>const params=new URLSearchParams(location.search);if(params.has('q')){window.name=params.get('q');}document.write(window.name);</script>"
+}

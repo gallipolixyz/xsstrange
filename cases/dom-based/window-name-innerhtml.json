@@ -1,0 +1,19 @@
+{
+  "title": "window.name via innerHTML",
+  "description": "Demonstrates a DOM-based XSS where untrusted content from window.name is written into the DOM using innerHTML.",
+  "objectives": [
+    "Observe that window.name persists across navigations.",
+    "Identify innerHTML as the unsafe sink.",
+    "Use control of window.name to inject HTML or script."
+  ],
+  "hints": [
+    "Set window.name to an HTML payload in DevTools, e.g., \"<img src=x onerror=alert(1)>\".",
+    "Alternatively pass ?q=<payload> to set window.name before the sink runs."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<div id='sink'></div><script>const params=new URLSearchParams(location.search);if(params.has('q')){window.name=params.get('q');}document.getElementById('sink').innerHTML=window.name;</script>"
+}
