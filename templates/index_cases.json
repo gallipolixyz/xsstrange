@@ -16,15 +16,19 @@
         "DOM access"
       ],
       "test_cases": [
-        "location-search-innerhtml",
         "location-hash-innerhtml",
+        "location-search-innerhtml",
         "localstorage-innerhtml",
         "referrer-via-eval",
+        "referrer-via-documentwrite",
         "referrer-via-innerHTML",
         "referrer-via-documentWrite",
         "cookie-eval",
         "cookie-documentWrite",
-        "cookie-innerHTML"
+        "cookie-innerHTML",
+        "window-name-eval",
+        "window-name-innerhtml",
+        "window-name-documentwrite"
       ],
       "resources": []
     }
@@ -44,6 +48,15 @@
       "vectors": [
         "Query parameters",
         "Form fields"
+      ],
+      "test_cases": [
+        "css",
+        "css-font",
+        "css-value",
+        "php-search-form",
+        "js-eval",
+        "js-quoted",
+        "js-unquoted"
       ],
       "resources": []
     }

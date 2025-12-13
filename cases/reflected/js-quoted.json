@@ -1,0 +1,23 @@
+{
+    "title": "PHP JavaScript Quoted String",
+    "description": "Reflects the q parameter from PHP into a quoted JavaScript assignment.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'Update available';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>PHP to JavaScript Quoted String</h3>\n    <p>The <code>q</code> parameter lands inside a single-quoted JavaScript variable.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <script>\n        // INJECTION POINT: close the string and run your own code\n        var message = '<?php echo $input; ?>';\n\n        console.log('App Message:', message);\n    </script>\n\n    <p>Close the quote and escape the statement to execute arbitrary JavaScript.</p>\n</body>\n</html>",
+
+    "objectives": [
+        "Terminate the single-quoted string that wraps <code>q</code>.",
+        "Escape the assignment with a semicolon and inject your own JavaScript (e.g., <code>alert(1)</code>).",
+        "Keep the script syntactically valid after your injection."
+    ],
+
+    "hints": [
+        "The context is: <code>var message = '[INPUT]';</code> built by PHP.",
+        "Break the string, add your payload, then comment out the remainder.",
+        "Example: <code>'; alert(1);//</code>"
+    ]
+}
