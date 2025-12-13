@@ -22,9 +22,9 @@
         "referrer-via-eval",
         "referrer-via-innerHTML",
         "referrer-via-documentWrite",
-        "Cookie-eval",
-        "Cookie-documentWrite",
-        "Cookie-innerHTML"
+        "cookie-eval",
+        "cookie-documentWrite",
+        "cookie-innerHTML"
       ],
       "resources": []
     }
