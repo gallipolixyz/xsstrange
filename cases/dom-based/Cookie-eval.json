@@ -12,7 +12,7 @@
     "You need to manually set a cookie using the Console: document.cookie='name=payload'"
   ],
   "difficulty": "medium",
-  "category": "dom-based",
+  "category": "Dom-Based",
   "risk": "high",
   "status": "active",
   "type": "html",
