@@ -1,5 +1,5 @@
 {
-  "title": "cookie-eval",
+  "title": "Cookie-eval",
   "description": "The application executes JavaScript based on a user's session token. However, the input source is not visible in the URL.",
   "objectives": [
     "Analyze the JavaScript source code to identify the input source.",
