@@ -1,19 +1,20 @@
 {
-  "title": "Cookie-documentWrite",
-  "description": "Demonstrates a classic DOM-based XSS where unsanitized cookie data is written directly to the document stream using document.write().",
+  "title": "Cookie via document.write",
+  "description": "DOM-based XSS that pulls a value from a cookie and feeds it directly into document.write().",
   "objectives": [
-    "Observe how document.write allows synchronous script execution.",
-    "Inject a standard <script>alert(1)</script> payload via URL parameter."
+    "Read the code path that extracts the q cookie value.",
+    "Confirm document.write() renders and executes the cookie content as HTML.",
+    "Clear or overwrite the cookie to observe persistence and re-exploitation."
   ],
   "hints": [
-    "Check how the 'input' cookie is set from the URL.",
-    "The sink is document.write, which evaluates scripts immediately.",
-    "If the XSS persists on refresh, try clearing your cookies."
+    "No URL params here—set the cookie manually: document.cookie='q=<payload>'.",
+    "document.write() is the sink; whatever is in q becomes HTML.",
+    "If your payload persists across refresh, delete the q cookie."
   ],
   "difficulty": "low",
-  "category": "DOM-Based",
+  "category": "dom-based",
   "risk": "critical",
   "status": "active",
   "type": "html",
-  "body": "<h3>Cookie -> document.write() sink</h3><p>Use <b>?c=YOUR_PAYLOAD</b> to set the cookie.</p><div id='result'></div><script>const p = new URLSearchParams(location.search);if (p.has('c')) { document.cookie = 'input=' + p.get('c') + '; path=/';}const m = document.cookie.match(/(^| )input=([^;]+)/);if (m) { const payload = decodeURIComponent(m[2]); document.write('<b>Stored Cookie Value:</b> ' + payload); document.cookie = 'input=; Max-Age=0; path=/';}</script>"
+  "body": "<h3>Cookie -> document.write() sink</h3><p>Set a cookie named <b>q</b> to control the output.</p><div id='result'></div><script>const match=document.cookie.match(/(^| )q=([^;]+)/);if(match){const payload=decodeURIComponent(match[2]);document.write('<b>Stored Cookie Value:</b> '+payload);}</script>"
 }

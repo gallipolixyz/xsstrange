@@ -1,20 +1,20 @@
 {
-  "title": "Cookie-eval",
-  "description": "The application executes JavaScript based on a user's session token. However, the input source is not visible in the URL.",
+  "title": "Cookie via eval",
+  "description": "Executes JavaScript pulled directly from a cookie value, keeping the sink hidden from the URL.",
   "objectives": [
-    "Analyze the JavaScript source code to identify the input source.",
-    "Understand how 'document.cookie' acts as a Data Source for DOM XSS.",
-    "Construct a payload that targets the specific cookie name required by the script."
+    "Find where the q cookie is read before eval executes.",
+    "Set the q cookie manually and trigger script execution.",
+    "Trace how document.cookie becomes the data source for the sink."
   ],
   "hints": [
-    "The vulnerability is not in the URL parameters.",
-    "Read the JavaScript code: What variable name is the 'getCookie' function looking for?",
-    "You need to manually set a cookie using the Console: document.cookie='name=payload'"
+    "Nothing in the URL sets the value; inspect the JavaScript.",
+    "The helper function searches for a specific cookie key.",
+    "Set it from DevTools: document.cookie='q=<payload>'"
   ],
   "difficulty": "medium",
-  "category": "Dom-Based",
+  "category": "dom-based",
   "risk": "high",
   "status": "active",
   "type": "html",
-  "body": "<h3>Session Restorer</h3><p>This page attempts to restore your session from a cookie. If no cookie is found, it logs 'Guest Mode' to the console.</p><script>function getCookie(name) { return document.cookie.split('; ').find(row => row.startsWith(name+'='))?.split('=')[1]; } var token = getCookie('auth_token'); if(token) { eval(token); } else { console.log('Guest Mode Active - No token found'); }</script>"
+  "body": "<h3>Session Restorer</h3><p>This page attempts to restore your session from a cookie. If no cookie is found, it logs 'Guest Mode' to the console.</p><script>function getCookie(name){return document.cookie.split('; ').find(row=>row.startsWith(name+'='))?.split('=')[1];}const token=getCookie('q');if(token){eval(token);}else{console.log('Guest Mode Active - No token found');}</script>"
 }
