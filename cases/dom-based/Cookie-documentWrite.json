@@ -11,7 +11,7 @@
     "If the XSS persists on refresh, try clearing your cookies."
   ],
   "difficulty": "low",
-  "category": "DOM-Based XSS",
+  "category": "DOM-Based",
   "risk": "critical",
   "status": "active",
   "type": "html",
