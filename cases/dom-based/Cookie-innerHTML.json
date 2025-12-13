@@ -1,0 +1,19 @@
+{
+  "title": "Cookie-innerHTML",
+  "description": "The application reads the 'user' cookie and renders it via innerHTML. Unlike document.write, innerHTML does NOT execute <script> tags. You must find another way.",
+  "objectives": [
+    "Understand that <script> tags inserted via innerHTML are not executed by the browser.",
+    "Bypass this restriction using event handlers like <img onerror=...> or <svg onload=...>."
+  ],
+  "hints": [
+    "Injecting <script>alert(1)</script> will insert the element into the DOM, but the JS won't run.",
+    "Try using an HTML tag that executes code when it loads or fails to load.",
+    "Example: <img src=x onerror=alert(1)>"
+  ],
+  "difficulty": "easy",
+  "category": "DOM-Based",
+  "risk": "medium",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>Cookie -> innerHTML Sink</h3><p>Use <b>?username=YOUR_PAYLOAD</b> to infect the cookie.</p><div id='target' style='border:1px dashed #ccc; padding:10px;'></div><script>const p=new URLSearchParams(location.search);if(p.has('username')){document.cookie='user='+p.get('username')+'; path=/';}const match=document.cookie.match(/(^|;)\\s*user=([^;]+)/);if(match){let u=decodeURIComponent(match[2]);document.getElementById('target').innerHTML='<b>Welcome,</b> '+u;}</script>"
+}
