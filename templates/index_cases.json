@@ -16,6 +16,8 @@
         "DOM access"
       ],
       "test_cases": [
+        "localstorage-array-eval",
+        "localstorage-function-eval",
         "location-hash-innerhtml",
         "location-search-innerhtml",
         "localstorage-innerhtml",
