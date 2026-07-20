@@ -1,0 +1,22 @@
+{
+  "title": "LocalStorage Array via eval()",
+  "description": "DOM-based XSS that reads a value from localStorage and passes it into eval() inside an array literal context.",
+  "objectives": [
+    "Trace how the 'items' key flows from localStorage.getItem() into eval().",
+    "Break out of the surrounding [ ... ] literal to execute arbitrary JavaScript.",
+    "Confirm the payload persists across reloads until localStorage is cleared.",
+    "Craft a payload that executes without breaking the downstream arr.join() call — understand why naive payloads throw TypeError."
+  ],
+  "hints": [
+    "Set the source with: localStorage.setItem('items','<payload>').",
+    "The value is inlined as eval('[' + storedValue + ']') — close the bracket, run your JS, then comment the trailing ']' out.",
+    "Reset the state with localStorage.removeItem('items') or localStorage.clear()."
+  ],
+  "difficulty": "low",
+  "category": "dom-based",
+  "risk": "critical",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>LocalStorage -> eval() (array context)</h3><p>Set <b>localStorage.items</b> to control the array contents.</p><div id='result'></div><script>const raw=localStorage.getItem('items');if(raw){const arr=eval('['+raw+']');document.getElementById('result').innerHTML='<b>Parsed items:</b> '+arr.join(', ');}</script>"
+}
+

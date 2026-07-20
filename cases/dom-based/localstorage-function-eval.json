@@ -1,0 +1,20 @@
+{
+  "title": "LocalStorage Function-call via eval()",
+  "description": "DOM-based XSS that reads a value from localStorage and passes it into eval() inside a function-invocation context.",
+  "objectives": [
+    "Trace how the 'input' key flows from localStorage.getItem() into eval().",
+    "Break out of the surrounding processInput(...) call to execute arbitrary JavaScript.",
+    "Confirm the payload persists across reloads until localStorage is cleared."
+  ],
+  "hints": [
+    "Set the source with: localStorage.setItem('input','<payload>').",
+    "The value is inlined as eval('processInput(' + storedValue + ')') — close the paren, run your JS, and comment the trailing ')' out.",
+    "Reset the state with localStorage.removeItem('input') or localStorage.clear()."
+  ],
+  "difficulty": "low",
+  "category": "dom-based",
+  "risk": "critical",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>LocalStorage -> eval() (function-call context)</h3><p>Set <b>localStorage.input</b> to control the argument passed into processInput().</p><div id='result'></div><script>function processInput(x){return String(x).toUpperCase();}const raw=localStorage.getItem('input');if(raw){const out=eval('processInput('+raw+')');document.getElementById('result').innerHTML='<b>Result:</b> '+out;}</script>"
+}
