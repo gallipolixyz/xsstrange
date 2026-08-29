@@ -1,0 +1,75 @@
+[
+  {
+    "category": "dom-based",
+    "tag": "Medium",
+    "title": "DOM-based XSS",
+    "description": "DOM-based XSS vulnerabilities.",
+    "status": "Active",
+    "details": {
+      "long_description": "DOM-based XSS vulnerabilities exploit the browser's DOM to inject malicious scripts via DOM manipulation.",
+      "impact": [
+        "Phishing",
+        "Session hijacking"
+      ],
+      "vectors": [
+        "Location.searchParams",
+        "DOM access"
+      ],
+      "test_cases": [
+        "localstorage-array-eval",
+        "localstorage-function-eval",
+        "location-hash-innerhtml",
+        "location-search-innerhtml",
+        "localstorage-innerhtml",
+        "referrer-via-eval",
+        "referrer-via-documentwrite",
+        "referrer-via-innerhtml",
+        "cookie-eval",
+        "cookie-documentwrite",
+        "cookie-innerhtml",
+        "window-name-eval",
+        "window-name-innerhtml",
+        "window-name-documentwrite",
+        "postmessage-insecure-regex",
+        "postmessage-complex-message",
+        "postmessage-improper-origin-validation-popup",
+        "event-triggering-innerhtml"
+      ],
+      "resources": []
+    }
+  },
+  {
+    "category": "reflected",
+    "tag": "High",
+    "title": "Reflected XSS",
+    "description": "Non-persistent reflected XSS vulnerabilities.",
+    "status": "Active",
+    "details": {
+      "long_description": "Reflected XSS occurs when user input is immediately returned by the server without proper validation.",
+      "impact": [
+        "Session hijacking",
+        "Phishing"
+      ],
+      "vectors": [
+        "Query parameters",
+        "Form fields"
+      ],
+      "test_cases": [
+        "css",
+        "css-font",
+        "css-value",
+        "php-search-form",
+        "js-eval",
+        "js-quoted",
+        "js-unquoted",
+        "js-single-quoted",
+        "parameter-body",
+        "parameter-title",
+        "parameter-body-comment",
+        "parameter-attribute-unquoted",
+        "parameter-attribute-double-quoted"
+      ],
+      "resources": []
+    }
+  }
+]
