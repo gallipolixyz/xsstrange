@@ -1,0 +1,21 @@
+{
+  "title": "PostMessage Complex Message",
+  "description": "A message receiver expects a structured (JSON) payload rather than a bare string, and never validates event.origin. The scanner/tester must construct a nested message object with the correct shape before the vulnerable sink is reached.",
+  "objectives": [
+    "Identify that the handler calls JSON.parse(event.data) instead of using event.data directly.",
+    "Determine the required object shape (the 'action' and 'payload' fields) by reading the handler code.",
+    "Deliver a crafted JSON string via postMessage whose payload field reaches the innerHTML sink."
+  ],
+  "hints": [
+    "The handler silently drops anything that isn't valid JSON or doesn't have action === 'render' — a bare string payload will never trigger the sink.",
+    "Build the message as JSON.stringify({action:'render', payload:'<payload>'}).",
+    "event.origin is never checked, so any origin may send the message once its shape is correct.",
+    "From DevTools: window.postMessage(JSON.stringify({action:'render',payload:'<img src=x onerror=alert(document.domain)>'}), '*')"
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>Widget Renderer</h3><p>This page listens for a structured (JSON) command from an embedding widget.</p><div id='widget-render' style='border:1px dashed #555; padding:10px;'>Waiting for render command...</div><script>\n// Intended message shape: {\"action\":\"render\",\"payload\":\"<html fragment>\"}\n// NOTE: event.origin is never validated — any window may post this message.\nwindow.addEventListener('message', function (event) {\n  var data;\n  try { data = JSON.parse(event.data); } catch (e) { return; }\n  if (!data || data.action !== 'render' || typeof data.payload !== 'string') { return; }\n  // Vulnerable SINK: attacker-controlled nested field written as HTML.\n  document.getElementById('widget-render').innerHTML = data.payload;\n});\n</script>"
+}

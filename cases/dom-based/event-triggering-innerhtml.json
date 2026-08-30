@@ -1,0 +1,22 @@
+{
+  "title": "Event Triggering via innerHTML",
+  "description": "The URL fragment is reflected into the page via innerHTML with no re-render on user action. Because there is no click, focus, or other user interaction available to a passive scanner, the payload's event handler must be one that fires automatically the moment it is inserted into the DOM.",
+  "objectives": [
+    "Notice the sink re-renders on hashchange, but nothing on the page requires a click or focus to reach a script-executing element.",
+    "Recognize that onclick/onfocus-style payloads will sit inert forever without simulated user interaction.",
+    "Deliver a payload whose event fires automatically on insertion/parse (no interaction needed) to prove script execution."
+  ],
+  "hints": [
+    "<script> tags are inert when inserted via innerHTML — this sink needs an HTML element with a self-firing event handler instead.",
+    "SVG's onload handler fires as soon as the element is parsed by the DOM, with no click needed: <svg onload=alert(document.domain)>",
+    "<img src=x onerror=...> also autofires because the broken src triggers the error event immediately.",
+    "<details open ontoggle=alert(document.domain)> is another zero-interaction trigger, useful when onerror/onload are filtered.",
+    "Set the URL fragment and let the page re-render, e.g. location.hash = '<svg onload=alert(document.domain)>'"
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "medium",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>Notification Preview</h3><p>Set the URL fragment to preview a notification snippet.</p><div id='preview' style='border:1px dashed #555; padding:10px; min-height:40px;'></div><script>\nfunction renderPreview () {\n  var hash = decodeURIComponent(location.hash.slice(1));\n  // Vulnerable SINK: no re-render is tied to a click/focus event, so any\n  // working payload here must trigger its own event on insertion.\n  document.getElementById('preview').innerHTML = hash || 'No preview data yet — set #fragment to preview.';\n}\nwindow.addEventListener('hashchange', renderPreview);\nrenderPreview();\n</script>"
+}

@@ -1,0 +1,21 @@
+{
+  "title": "PostMessage Improper Origin Validation with Popup",
+  "description": "A page opens a named popup to start a 'partner widget' handshake, then trusts any message it receives afterward without ever checking event.origin. The message channel is only reachable through the popup flow, so the vulnerability is easy to miss for testers that only probe direct message listeners.",
+  "objectives": [
+    "Trigger the 'Connect to Partner Widget' flow and observe that a popup window is opened by name.",
+    "Notice that the resulting message listener performs no event.origin check at all.",
+    "Cause a message to be delivered from an attacker-controlled window sharing the same window name, and get it rendered via innerHTML."
+  ],
+  "hints": [
+    "window.open(url, 'partnerWidget') reuses any existing window that already has the name 'partnerWidget' — including one an attacker opened first via a link the victim clicked.",
+    "The message handler never checks event.origin or event.source; it renders whatever it receives as soon as the popup flow has started.",
+    "An attacker page can open window.open('https://attacker.example','partnerWidget') beforehand, then later call window.opener.postMessage(payload,'*') from that window once the victim starts the handshake.",
+    "Simulate from DevTools once the popup is open: (the popup's) window.opener.postMessage('<img src=x onerror=alert(document.domain)>', '*')"
+  ],
+  "difficulty": "hard",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>Partner Widget Connector</h3><p>Click connect to establish a handshake with the partner widget in a popup window.</p><button id='connect-btn' onclick=\"widgetPopup = window.open('about:blank', 'partnerWidget', 'width=420,height=320'); document.getElementById('popup-status').textContent = 'Waiting for widget handshake...';\">Connect to Partner Widget</button><div id='popup-status' style='margin-top:10px;'></div><script>\nvar widgetPopup = null;\n// VULNERABLE: no event.origin or event.source check is performed here at all.\n// Any window able to reach this listener is implicitly trusted once the\n// popup handshake has been started by the user.\nwindow.addEventListener('message', function (event) {\n  document.getElementById('popup-status').innerHTML = event.data;\n});\n</script>"
+}
