@@ -1,0 +1,20 @@
+{
+  "title": "SessionStorage Function-call via eval()",
+  "description": "DOM-based XSS that reads a value from sessionStorage and passes it into eval() inside a function-invocation context.",
+  "objectives": [
+    "Trace how the 'input' key flows from sessionStorage.getItem() into eval().",
+    "Break out of the surrounding processInput(...) call to execute arbitrary JavaScript.",
+    "Note that, unlike localStorage, this value only persists for the current tab's session."
+  ],
+  "hints": [
+    "Set the source with: sessionStorage.setItem('input','<payload>').",
+    "The value is inlined as eval('processInput(' + storedValue + ')') — close the paren, run your JS, and comment the trailing ')' out.",
+    "Reset the state with sessionStorage.removeItem('input') or sessionStorage.clear()."
+  ],
+  "difficulty": "low",
+  "category": "dom-based",
+  "risk": "critical",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>SessionStorage -> eval() (function-call context)</h3><p>Set <b>sessionStorage.input</b> to control the argument passed into processInput().</p><div id='result'></div><script>function processInput(x){return String(x).toUpperCase();}const raw=sessionStorage.getItem('input');if(raw){const out=eval('processInput('+raw+')');document.getElementById('result').innerHTML='<b>Result:</b> '+out;}</script>"
+}

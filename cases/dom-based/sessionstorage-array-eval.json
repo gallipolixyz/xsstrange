@@ -1,0 +1,21 @@
+{
+  "title": "SessionStorage Array via eval()",
+  "description": "DOM-based XSS that reads a value from sessionStorage and passes it into eval() inside an array literal context.",
+  "objectives": [
+    "Trace how the 'items' key flows from sessionStorage.getItem() into eval().",
+    "Break out of the surrounding [ ... ] literal to execute arbitrary JavaScript.",
+    "Note that, unlike localStorage, this value only persists for the current tab's session.",
+    "Craft a payload that executes without breaking the downstream arr.join() call — understand why naive payloads throw TypeError."
+  ],
+  "hints": [
+    "Set the source with: sessionStorage.setItem('items','<payload>').",
+    "The value is inlined as eval('[' + storedValue + ']') — close the bracket, run your JS, then comment the trailing ']' out.",
+    "Reset the state with sessionStorage.removeItem('items') or sessionStorage.clear()."
+  ],
+  "difficulty": "low",
+  "category": "dom-based",
+  "risk": "critical",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>SessionStorage -> eval() (array context)</h3><p>Set <b>sessionStorage.items</b> to control the array contents.</p><div id='result'></div><script>const raw=sessionStorage.getItem('items');if(raw){const arr=eval('['+raw+']');document.getElementById('result').innerHTML='<b>Parsed items:</b> '+arr.join(', ');}</script>"
+}

@@ -1,0 +1,20 @@
+{
+  "title": "LocalStorage Function-call via innerHTML",
+  "description": "DOM-based XSS where a value read from localStorage is passed as an argument into a rendering function that assigns it to innerHTML.",
+  "objectives": [
+    "Trace how the 'msg' key flows from localStorage.getItem() through the renderMessage(...) function into innerHTML.",
+    "Recognize that innerHTML does not execute injected <script> tags directly — you need an event-based gadget.",
+    "Confirm the payload persists across reloads until localStorage is cleared."
+  ],
+  "hints": [
+    "Set the source with: localStorage.setItem('msg','<payload>').",
+    "renderMessage(value) assigns value straight to element.innerHTML — plain <script> tags stay inert here, so use something like <img src=x onerror=alert(1)>.",
+    "Reset the state with localStorage.removeItem('msg') or localStorage.clear()."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "medium",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>LocalStorage -> innerHTML (function-call context)</h3><p>Set <b>localStorage.msg</b>; it is passed through renderMessage() before reaching the DOM.</p><div id='box'></div><script>function renderMessage(value){document.getElementById('box').innerHTML=value;}const raw=localStorage.getItem('msg');if(raw){renderMessage(raw);}</script>"
+}

@@ -1,0 +1,20 @@
+{
+  "title": "LocalStorage via document.write",
+  "description": "DOM-based XSS where a value read directly from localStorage is fed straight into document.write() with no intermediate function or wrapping.",
+  "objectives": [
+    "Identify that the 'page' key is read from localStorage and passed to document.write() in a single line, with no processing in between.",
+    "Confirm that document.write() executes an injected <script> tag directly.",
+    "Observe that the payload persists across reloads until localStorage is cleared."
+  ],
+  "hints": [
+    "Set the source with: localStorage.setItem('page','<payload>').",
+    "The value goes straight into document.write(raw) — no escaping, no function boundary to trace through.",
+    "Reset the state with localStorage.removeItem('page') or localStorage.clear()."
+  ],
+  "difficulty": "low",
+  "category": "dom-based",
+  "risk": "critical",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>LocalStorage -> document.write() (direct)</h3><p>Set <b>localStorage.page</b> to control the output.</p><script>const raw=localStorage.getItem('page');if(raw){document.write(raw);}</script>"
+}

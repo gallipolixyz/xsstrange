@@ -1,0 +1,20 @@
+{
+  "title": "SessionStorage via document.write",
+  "description": "DOM-based XSS where a value read directly from sessionStorage is fed straight into document.write() with no intermediate function or wrapping.",
+  "objectives": [
+    "Identify that the 'page' key is read from sessionStorage and passed to document.write() in a single line, with no processing in between.",
+    "Confirm that document.write() executes an injected <script> tag directly.",
+    "Note that this value only persists for the current tab's session, unlike the localStorage equivalent of this case."
+  ],
+  "hints": [
+    "Set the source with: sessionStorage.setItem('page','<payload>').",
+    "The value goes straight into document.write(raw) — no escaping, no function boundary to trace through.",
+    "Reset the state with sessionStorage.removeItem('page') or sessionStorage.clear()."
+  ],
+  "difficulty": "low",
+  "category": "dom-based",
+  "risk": "critical",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>SessionStorage -> document.write() (direct)</h3><p>Set <b>sessionStorage.page</b> to control the output.</p><script>const raw=sessionStorage.getItem('page');if(raw){document.write(raw);}</script>"
+}

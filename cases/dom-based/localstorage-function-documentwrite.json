@@ -1,0 +1,20 @@
+{
+  "title": "LocalStorage Function-call via document.write",
+  "description": "DOM-based XSS where a value read from localStorage is passed as an argument into a rendering function that feeds it directly into document.write().",
+  "objectives": [
+    "Trace how the 'content' key flows from localStorage.getItem() through renderPage(...) into document.write().",
+    "Confirm that, unlike innerHTML, document.write() executes injected <script> tags directly.",
+    "Observe that the payload persists across reloads until localStorage is cleared."
+  ],
+  "hints": [
+    "Set the source with: localStorage.setItem('content','<payload>').",
+    "renderPage(value) wraps value in a <div> and hands it to document.write() — a plain <script>alert(1)</script> payload runs here.",
+    "Reset the state with localStorage.removeItem('content') or localStorage.clear()."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "critical",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>LocalStorage -> document.write() (function-call context)</h3><p>Set <b>localStorage.content</b>; it is passed through renderPage() before reaching document.write().</p><script>function renderPage(value){document.write('<div>'+value+'</div>');}const raw=localStorage.getItem('content');if(raw){renderPage(raw);}</script>"
+}

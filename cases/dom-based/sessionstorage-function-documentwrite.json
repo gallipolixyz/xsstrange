@@ -1,0 +1,20 @@
+{
+  "title": "SessionStorage Function-call via document.write",
+  "description": "DOM-based XSS where a value read from sessionStorage is passed as an argument into a rendering function that feeds it directly into document.write().",
+  "objectives": [
+    "Trace how the 'content' key flows from sessionStorage.getItem() through renderPage(...) into document.write().",
+    "Confirm that, unlike innerHTML, document.write() executes injected <script> tags directly.",
+    "Note that this value only persists for the current tab's session, unlike the localStorage equivalent of this case."
+  ],
+  "hints": [
+    "Set the source with: sessionStorage.setItem('content','<payload>').",
+    "renderPage(value) wraps value in a <div> and hands it to document.write() — a plain <script>alert(1)</script> payload runs here.",
+    "Reset the state with sessionStorage.removeItem('content') or sessionStorage.clear()."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "critical",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>SessionStorage -> document.write() (function-call context)</h3><p>Set <b>sessionStorage.content</b>; it is passed through renderPage() before reaching document.write().</p><script>function renderPage(value){document.write('<div>'+value+'</div>');}const raw=sessionStorage.getItem('content');if(raw){renderPage(raw);}</script>"
+}

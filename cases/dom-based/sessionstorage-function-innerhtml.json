@@ -1,0 +1,20 @@
+{
+  "title": "SessionStorage Function-call via innerHTML",
+  "description": "DOM-based XSS where a value read from sessionStorage is passed as an argument into a rendering function that assigns it to innerHTML.",
+  "objectives": [
+    "Trace how the 'msg' key flows from sessionStorage.getItem() through renderMessage(...) into innerHTML.",
+    "Recognize that innerHTML does not execute injected <script> tags directly — you need an event-based gadget.",
+    "Note that this value only persists for the current tab's session, unlike the localStorage equivalent of this case."
+  ],
+  "hints": [
+    "Set the source with: sessionStorage.setItem('msg','<payload>').",
+    "renderMessage(value) assigns value straight to element.innerHTML — plain <script> tags stay inert here, so use something like <img src=x onerror=alert(1)>.",
+    "Reset the state with sessionStorage.removeItem('msg') or sessionStorage.clear()."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "medium",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>SessionStorage -> innerHTML (function-call context)</h3><p>Set <b>sessionStorage.msg</b>; it is passed through renderMessage() before reaching the DOM.</p><div id='box'></div><script>function renderMessage(value){document.getElementById('box').innerHTML=value;}const raw=sessionStorage.getItem('msg');if(raw){renderMessage(raw);}</script>"
+}
